@@ -228,7 +228,7 @@ footer p{margin:4px 0}
 
   document.querySelectorAll("[data-loc]").forEach(function(btn){
     var key = btn.getAttribute("data-loc"), link = ORDER_LINKS[key];
-    if (link){ btn.href = link; btn.target = "_blank"; btn.rel = "noopener"; }
+    if (link){ btn.href = link; }  /* opens in the same tab, like a normal website link */
     else {
       btn.addEventListener("click", function(e){
         e.preventDefault();
