@@ -1,0 +1,220 @@
+<!doctype html>
+<!-- Say McIntosh holiday pie pre-orders · mcintoshpies.com -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order Grandpa's Thanksgiving Pies · Say McIntosh</title>
+<meta name="description" content="Order Say McIntosh sweet potato pie, pecan pie and sweet potato cheesecake for Thanksgiving. $17.99 each when you order by Nov 20. Pick up Nov 24 or 25 in Little Rock or North Little Rock.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Figtree:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fff7ec; --paper:#ffffff; --tan:#f3e2c7;
+  --orange:#e8731a; --orange-dark:#c85d0c;
+  --red:#c62f26; --brown:#4a2410; --brown-2:#6b3a1c; --text:#3a2416;
+  --line:#e6d3b5;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:"Figtree", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--cream);color:var(--text);font-family:var(--sans);font-size:1.25rem;line-height:1.5;
+  padding-bottom:env(safe-area-inset-bottom,0px);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--red);outline-offset:3px;border-radius:8px}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.1;margin:0;color:var(--brown)}
+
+/* top notice */
+.notice{background:var(--red);color:#fff;text-align:center;font-weight:700;font-size:1.05rem;
+  padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px}
+
+/* header */
+header{background:var(--paper);border-bottom:4px solid var(--orange)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;padding-bottom:12px}
+.logo{display:inline-flex;flex-direction:column;line-height:1;text-decoration:none}
+.logo .say{font-family:var(--display);font-style:italic;font-weight:700;color:var(--red);font-size:1rem}
+.logo .name{font-family:var(--display);font-weight:700;color:var(--orange-dark);font-size:1.7rem}
+.logo .fam{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--red);text-transform:uppercase;margin-top:3px}
+.call-top{font-weight:700;color:var(--brown);text-decoration:none;font-size:1.05rem;text-align:right;line-height:1.25}
+.call-top span{display:block;font-size:.85rem;font-weight:600;color:var(--brown-2)}
+
+/* hero */
+.hero{background:linear-gradient(180deg,#fbe3c3 0%,var(--cream) 100%);text-align:center;padding:44px 0 36px}
+.hero h1{font-size:clamp(2.4rem,7vw,3.6rem)}
+.hero .since{margin:10px 0 0;color:var(--brown-2);font-weight:600}
+.price{margin:26px auto 0;display:inline-block;background:var(--paper);border:3px solid var(--orange);border-radius:22px;padding:18px 30px}
+.price b{display:block;font-family:var(--display);font-size:clamp(3rem,10vw,4rem);line-height:1;color:var(--red)}
+.price span{font-weight:700;color:var(--brown)}
+.dates{list-style:none;padding:0;margin:26px auto 0;max-width:560px;display:grid;gap:10px;text-align:left}
+.dates li{background:var(--paper);border-radius:14px;padding:14px 18px;border-left:8px solid var(--orange);font-weight:600}
+.dates strong{color:var(--brown)}
+#left{color:var(--red);font-weight:800}
+.big-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;max-width:560px;margin:28px auto 0;
+  min-height:76px;padding:14px 24px;border-radius:18px;background:var(--orange);color:#fff;font-weight:800;font-size:1.5rem;
+  text-decoration:none;box-shadow:0 6px 0 var(--orange-dark);transition:transform .1s,box-shadow .1s}
+.big-btn:hover{background:#ef7c24}
+.big-btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--orange-dark)}
+
+/* pies */
+section{padding:48px 0}
+.sec-title{font-size:clamp(2rem,5.5vw,2.6rem);text-align:center;margin-bottom:28px}
+.pies{display:grid;gap:18px}
+@media (min-width:760px){.pies{grid-template-columns:repeat(3,1fr)}}
+.pie{background:var(--paper);border:2px solid var(--line);border-radius:22px;padding:20px;text-align:center}
+.pie svg{width:70%;max-width:220px;height:auto;display:block;margin:0 auto 10px}
+.pie h3{font-size:1.65rem}
+.pie p{margin:6px 0 0;color:var(--brown-2);font-size:1.15rem}
+.pie .star{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:10px}
+
+/* order */
+.order{background:var(--brown);color:#fff}
+.order h2{color:#fff}
+.order .sub{text-align:center;margin:-14px 0 28px;color:#f3e2c7;font-size:1.2rem}
+.locs{display:grid;gap:18px}
+@media (min-width:760px){.locs{grid-template-columns:1fr 1fr}}
+.loc{background:var(--cream);color:var(--text);border-radius:22px;padding:22px;text-align:center}
+.loc h3{font-size:1.9rem}
+.loc address{font-style:normal;margin:6px 0 16px;color:var(--brown-2)}
+.loc .big-btn{margin:0 auto;font-size:1.4rem}
+.loc .phone{display:inline-block;margin-top:16px;font-weight:700;color:var(--brown);font-size:1.2rem}
+.loc .dir{display:inline-block;margin-top:6px;color:var(--brown-2);font-size:1.05rem}
+.help{text-align:center;margin:28px 0 0;color:#f3e2c7}
+.help strong{color:#fff}
+
+/* good to know */
+.facts{list-style:none;padding:0;margin:0 auto;max-width:640px;display:grid;gap:14px}
+.facts li{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:16px 20px}
+.facts b{display:block;color:var(--brown);font-size:1.25rem}
+
+footer{background:var(--tan);text-align:center;padding:28px 22px;font-size:1.05rem;color:var(--brown-2)}
+footer p{margin:4px 0}
+</style>
+</head>
+<body>
+
+<div class="notice">Thanksgiving pies: order by Friday, Nov 20</div>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Say McIntosh Family Restaurant">
+      <span class="say">Say</span><span class="name">McIntosh</span><span class="fam">Family Restaurant</span>
+    </a>
+    <a class="call-top" href="#order">Order by phone<span>Tap for numbers</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap">
+      <h1 id="h1">Grandpa's Pies for Thanksgiving</h1>
+      <p class="since">Made from Grandpa's recipe since 1962</p>
+
+      <div class="price"><b>$17.99</b><span>per pie · order by Nov 20</span></div>
+
+      <ul class="dates">
+        <li><strong>Order by:</strong> Friday, Nov 20 <span id="left"></span></li>
+        <li><strong>Pick up:</strong> Tuesday, Nov 24 or Wednesday, Nov 25</li>
+        <li><strong>Hours:</strong> 11am to 8pm</li>
+      </ul>
+
+      <a class="big-btn" href="#order">Order a Pie ↓</a>
+    </div>
+  </section>
+
+  <section aria-labelledby="pies-h">
+    <div class="wrap">
+      <h2 class="sec-title" id="pies-h">Our Pies</h2>
+      <div class="pies">
+        <div class="pie">
+          <span class="star">Grandpa's favorite</span>
+          <svg viewBox="0 0 200 120" aria-hidden="true"><ellipse cx="100" cy="70" rx="92" ry="44" fill="#d99a52"/><ellipse cx="100" cy="64" rx="92" ry="44" fill="#f0c283"/><ellipse cx="100" cy="64" rx="76" ry="34" fill="#cf6a24"/><ellipse cx="82" cy="54" rx="24" ry="7" fill="#fff" opacity=".18"/></svg>
+          <h3>Sweet Potato Pie</h3>
+          <p>Smooth, warm spices, flaky crust.</p>
+        </div>
+        <div class="pie">
+          <svg viewBox="0 0 200 120" aria-hidden="true"><ellipse cx="100" cy="70" rx="92" ry="44" fill="#d49551"/><ellipse cx="100" cy="64" rx="92" ry="44" fill="#ebbb78"/><ellipse cx="100" cy="64" rx="76" ry="34" fill="#6b3413"/><g fill="#a0582a" stroke="#4a220b" stroke-width="1.2"><ellipse cx="80" cy="52" rx="9" ry="5" transform="rotate(-20 80 52)"/><ellipse cx="104" cy="46" rx="9" ry="5" transform="rotate(10 104 46)"/><ellipse cx="126" cy="56" rx="9" ry="5" transform="rotate(-30 126 56)"/><ellipse cx="92" cy="70" rx="9" ry="5" transform="rotate(25 92 70)"/><ellipse cx="116" cy="74" rx="9" ry="5" transform="rotate(-10 116 74)"/><ellipse cx="66" cy="68" rx="9" ry="5" transform="rotate(15 66 68)"/><ellipse cx="140" cy="72" rx="9" ry="5" transform="rotate(35 140 72)"/><ellipse cx="102" cy="88" rx="9" ry="5" transform="rotate(-5 102 88)"/></g></svg>
+          <h3>Pecan Pie</h3>
+          <p>Toasted pecans, rich caramel.</p>
+        </div>
+        <div class="pie">
+          <svg viewBox="0 0 200 120" aria-hidden="true"><ellipse cx="100" cy="72" rx="90" ry="40" fill="#b77f44"/><rect x="10" y="48" width="180" height="24" fill="#b77f44"/><ellipse cx="100" cy="66" rx="90" ry="40" fill="#f3e3c4"/><rect x="10" y="44" width="180" height="22" fill="#f3e3c4"/><ellipse cx="100" cy="44" rx="90" ry="40" fill="#fbf0da"/><path d="M40 40c20-14 40 10 60-2s40-12 60 4" fill="none" stroke="#d9772c" stroke-width="7" stroke-linecap="round"/><path d="M52 58c18-8 34 6 52-2s32-6 46 2" fill="none" stroke="#e39146" stroke-width="5" stroke-linecap="round" opacity=".8"/></svg>
+          <h3>Sweet Potato Cheesecake</h3>
+          <p>Creamy cheesecake, graham crust.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="order" id="order" aria-labelledby="order-h">
+    <div class="wrap">
+      <h2 class="sec-title" id="order-h">Where will you pick up?</h2>
+      <p class="sub">Tap your restaurant to order.</p>
+      <div class="locs">
+        <div class="loc">
+          <h3>Little Rock</h3>
+          <address>6223 Colonel Glenn Rd</address>
+          <a class="big-btn" id="btn-lr" href="tel:+15015904828">Order for Little Rock</a>
+          <a class="phone" href="tel:+15015904828">Or call (501) 590-4828</a><br>
+          <a class="dir" href="https://maps.google.com/?q=6223+Colonel+Glenn+Rd+Little+Rock+AR+72204" target="_blank" rel="noopener">Get directions</a>
+        </div>
+        <div class="loc">
+          <h3>North Little Rock</h3>
+          <address>4604 E Broadway St</address>
+          <a class="big-btn" id="btn-nlr" href="tel:+15017126993">Order for North Little Rock</a>
+          <a class="phone" href="tel:+15017126993">Or call (501) 712-6993</a><br>
+          <a class="dir" href="https://maps.google.com/?q=4604+E+Broadway+St+North+Little+Rock+AR+72117" target="_blank" rel="noopener">Get directions</a>
+        </div>
+      </div>
+      <p class="help">Need help? <strong>Just call us.</strong> We'll take your order over the phone.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="know-h">
+    <div class="wrap">
+      <h2 class="sec-title" id="know-h">Good to Know</h2>
+      <ul class="facts">
+        <li><b>Pickup only</b>No delivery. Pick up Nov 24 or 25, 11am to 8pm.</li>
+        <li><b>Need to change your order?</b>Call the restaurant you ordered from.</li>
+        <li><b>Big order?</b>Order as many as you need. For a dozen or more, please call.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p><strong>Say McIntosh Family Restaurant</strong> · Since 1962</p>
+  <p>Open Monday to Saturday, 11am to 8pm · Closed Sunday</p>
+</footer>
+
+<script>
+(function(){
+  /* ===== PASTE YOUR ONLINE ORDERING LINKS HERE (keep the quotes) =====
+     Until a link is added, that button calls the restaurant instead. */
+  var ORDER_LINKS = {
+    lr:  "",   // Little Rock, e.g. "https://order.toasttab.com/online/your-little-rock-page"
+    nlr: ""    // North Little Rock, e.g. "https://your-store.square.site"
+  };
+
+  [["lr","btn-lr"],["nlr","btn-nlr"]].forEach(function(p){
+    var link = ORDER_LINKS[p[0]], btn = document.getElementById(p[1]);
+    if (link && btn){ btn.href = link; btn.target = "_blank"; btn.rel = "noopener"; }
+  });
+
+  /* Days left to order: closes 11:59 PM Central, Friday Nov 20, 2026 */
+  var ms = new Date("2026-11-20T23:59:59-06:00").getTime() - Date.now();
+  var el = document.getElementById("left");
+  if (el){
+    if (ms <= 0){ el.textContent = "(ordering is closed, please call)"; }
+    else {
+      var d = Math.ceil(ms/86400000);
+      el.textContent = d === 1 ? "(last day!)" : "(" + d + " days left)";
+    }
+  }
+})();
+</script>
+</body>
+</html>
