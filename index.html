@@ -134,8 +134,10 @@ section{padding:56px 0}
 .co-empty{text-align:center;font-size:1.15rem;margin:0}
 #co-lines{list-style:none;margin:0;padding:0}
 #co-lines li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-weight:600}
-.co-total{display:flex;justify-content:space-between;font-family:var(--display);text-transform:uppercase;font-size:1.8rem;margin:12px 0 4px;color:var(--ink)}
-.co-total span{color:var(--red)}
+.sums{margin-top:12px}
+.sums p{display:flex;justify-content:space-between;margin:4px 0;font-weight:600;color:var(--muted)}
+.sums p.co-total{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:1.8rem;margin:10px 0 4px;color:var(--ink)}
+.co-total span:last-child{color:var(--red)}
 .co-form fieldset{border:0;padding:0;margin:26px 0 0}
 .co-form legend{font-family:var(--display);text-transform:uppercase;font-size:1.5rem;color:var(--ink);margin-bottom:10px}
 .choices{display:grid;gap:10px}
@@ -151,10 +153,23 @@ section{padding:56px 0}
 .field span{display:block;font-weight:700;margin-bottom:4px}
 .field input{width:100%;min-height:56px;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:10px}
 .field input:focus{border-color:var(--red);outline:none}
-#co-error{color:var(--red-dark);font-weight:700;margin:16px 0 0;min-height:1em}
+.co-err{color:var(--red-dark);font-weight:700;margin:16px 0 0;min-height:1em}
 .co-form .btn-lg{margin:18px auto 0;display:flex}
 .co-form .btn-lg[disabled]{opacity:.6;cursor:wait}
 .co-fine{text-align:center;color:var(--muted);font-size:.95rem;margin:10px 0 0}
+.tm-box{margin-top:24px}
+.tm-box[hidden]{display:none}
+.tm-title{font-size:clamp(1.9rem,6vw,2.5rem);text-align:center}
+.tm-ready{text-align:center;margin:6px 0 0;font-size:1.15rem}
+.tm-ready strong{color:var(--red)}
+.tm-items{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.add-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:2px solid var(--line);border-radius:10px;padding:10px 10px 10px 14px}
+.add-row strong{display:block;color:var(--ink);font-size:1.1rem;line-height:1.25}
+.add-row span{color:var(--red);font-weight:700}
+.add-row .qty{flex:none;padding:4px;gap:6px;border-width:0;background:transparent}
+.add-row .qbtn{width:50px;height:50px;font-size:1.7rem}
+.add-row .qnum{min-width:28px;text-align:center}
+.add-row .qnum b{margin:0}
 .thanks{background:#1f7a3a;color:#fff;text-align:center;font-weight:700;padding:16px 20px;font-size:1.1rem}
 .thanks[hidden]{display:none}
 .pie .cost-note{margin:0;font-weight:800;color:var(--red-dark);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
@@ -322,7 +337,11 @@ footer strong{color:#fff}
         <p class="co-empty" id="co-empty">Your order is empty. Tap <strong>Add to Order</strong> on a pie above.</p>
         <form class="co-form" id="co-form" hidden novalidate>
           <ul id="co-lines"></ul>
-          <p class="co-total">Total <span id="co-total">$0.00</span></p>
+          <div class="sums">
+            <p><span>Subtotal</span><span id="co-sub">$0.00</span></p>
+            <p><span id="co-taxlabel">Tax</span><span id="co-tax">Pick a location</span></p>
+            <p class="co-total"><span>Total</span><span id="co-total">$0.00</span></p>
+          </div>
 
           <fieldset>
             <legend>1. Pick up at</legend>
@@ -350,7 +369,7 @@ footer strong{color:#fff}
             <label class="field"><span>Phone number</span><input id="co-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20"></label>
           </fieldset>
 
-          <p id="co-error" role="alert"></p>
+          <p id="co-error" class="co-err" role="alert"></p>
           <button type="submit" class="btn btn-lg" id="co-pay">Pay Securely with Square</button>
           <p class="co-fine">You'll finish paying on Square's secure checkout page.</p>
         </form>
@@ -365,8 +384,59 @@ footer strong{color:#fff}
         <h2>Can't wait until Thanksgiving?</h2>
         <p class="tm-big">Get a pie tomorrow!</p>
         <p>Give us 24 hours, then pick up your pie at the location of your choice.</p>
-        <a class="btn" data-loc="tomorrow" href="#">Order Now</a>
-        <p class="soon" id="soon-tomorrow">Online ordering opens soon.</p>
+        <a class="btn" id="tm-open" href="#tm-order" aria-expanded="false" aria-controls="tm-order">Order Now</a>
+      </div>
+
+      <div class="co-box tm-box" id="tm-order" hidden>
+        <h2 class="tm-title">Order for Tomorrow</h2>
+        <p class="tm-ready">Ready for pickup <strong id="tm-date">tomorrow</strong></p>
+        <form class="co-form" id="tm-form" novalidate>
+          <fieldset>
+            <legend>1. Choose your pies</legend>
+            <ul class="tm-items">
+              <li class="add-row" data-item="sweet"><div><strong>Sweet Potato Pie</strong><span>$19.99</span></div>
+                <div class="qty"><button type="button" class="qbtn js-minus" aria-label="Remove one Sweet Potato Pie">−</button><span class="qnum" aria-live="polite"><b>0</b></span><button type="button" class="qbtn js-plus" aria-label="Add one Sweet Potato Pie">+</button></div></li>
+              <li class="add-row" data-item="pecan"><div><strong>Pecan Pie</strong><span>$22.99</span></div>
+                <div class="qty"><button type="button" class="qbtn js-minus" aria-label="Remove one Pecan Pie">−</button><span class="qnum" aria-live="polite"><b>0</b></span><button type="button" class="qbtn js-plus" aria-label="Add one Pecan Pie">+</button></div></li>
+              <li class="add-row" data-item="cheese"><div><strong>Sweet Potato Cheesecake</strong><span>$29.99</span></div>
+                <div class="qty"><button type="button" class="qbtn js-minus" aria-label="Remove one Sweet Potato Cheesecake">−</button><span class="qnum" aria-live="polite"><b>0</b></span><button type="button" class="qbtn js-plus" aria-label="Add one Sweet Potato Cheesecake">+</button></div></li>
+              <li class="add-row" data-item="fill"><div><strong>Sweet Potato Pie Filling</strong><span>$15.99</span></div>
+                <div class="qty"><button type="button" class="qbtn js-minus" aria-label="Remove one Sweet Potato Pie Filling">−</button><span class="qnum" aria-live="polite"><b>0</b></span><button type="button" class="qbtn js-plus" aria-label="Add one Sweet Potato Pie Filling">+</button></div></li>
+            </ul>
+          </fieldset>
+
+          <fieldset>
+            <legend>2. Pick up at</legend>
+            <div class="choices two">
+              <label class="choice"><input type="radio" name="tm-location" value="lr"><strong>Little Rock</strong><small>6223 Colonel Glenn Rd</small></label>
+              <label class="choice"><input type="radio" name="tm-location" value="nlr"><strong>North Little Rock</strong><small>4604 E Broadway St</small></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>3. Pickup time</legend>
+            <div class="choices three">
+              <label class="choice"><input type="radio" name="tm-slot" value="early"><strong>11am–2pm</strong></label>
+              <label class="choice"><input type="radio" name="tm-slot" value="mid"><strong>2pm–5pm</strong></label>
+              <label class="choice"><input type="radio" name="tm-slot" value="late"><strong>5pm–8pm</strong></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>4. Your name and phone</legend>
+            <label class="field"><span>Name</span><input id="tm-name" autocomplete="name" maxlength="60"></label>
+            <label class="field"><span>Phone number</span><input id="tm-phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20"></label>
+          </fieldset>
+
+          <div class="sums">
+            <p><span>Subtotal</span><span id="tm-sub">$0.00</span></p>
+            <p><span id="tm-taxlabel">Tax</span><span id="tm-tax">Pick a location</span></p>
+            <p class="co-total"><span>Total</span><span id="tm-total">$0.00</span></p>
+          </div>
+          <p id="tm-error" class="co-err" role="alert"></p>
+          <button type="submit" class="btn btn-lg" id="tm-pay">Pay Securely with Square</button>
+          <p class="co-fine">You'll finish paying on Square's secure checkout page.</p>
+        </form>
       </div>
     </div>
   </section>
@@ -391,109 +461,129 @@ footer strong{color:#fff}
 
 <script>
 (function(){
-  /* ===== PASTE YOUR ONLINE ORDERING LINKS HERE (keep the quotes) ===== */
-  /* ===== PRICES SHOWN ON THE PAGE (checkout uses the prices in api/checkout.js) ===== */
-  var MENU = {
-    sweet:  { name: "Sweet Potato Pie",         price: 17.99 },
-    pecan:  { name: "Pecan Pie",                price: 19.99 },
-    cheese: { name: "Sweet Potato Cheesecake",  price: 26.99 },
-    fill:   { name: "Sweet Potato Pie Filling", price: 13.99 }
+  /* ===== PRICES SHOWN ON THE PAGE (customers are charged the prices in api/checkout.js) ===== */
+  var MENUS = {
+    preorder: { sweet:17.99, pecan:19.99, cheese:26.99, fill:13.99 },   // Thanksgiving pre-order
+    tomorrow: { sweet:19.99, pecan:22.99, cheese:29.99, fill:15.99 }    // Get a pie tomorrow
   };
-  var TOMORROW_LINK = "";   // "Get a pie tomorrow" ordering link
+  var NAMES = { sweet:"Sweet Potato Pie", pecan:"Pecan Pie", cheese:"Sweet Potato Cheesecake", fill:"Sweet Potato Pie Filling" };
+  var TAX = { lr:10.625, nlr:9.5 };   // sales tax % by location
 
-  var cart = {};
   function money(n){ return "$" + n.toFixed(2); }
-  function count(){ var c=0; for (var k in cart) c+=cart[k]; return c; }
-  function total(){ var t=0; for (var k in cart) t+=cart[k]*MENU[k].price; return Math.round(t*100)/100; }
+  function $(id){ return document.getElementById(id); }
 
-  function render(){
-    document.querySelectorAll(".add").forEach(function(box){
-      var k=box.getAttribute("data-item"), q=cart[k]||0;
-      box.querySelector(".js-add").hidden = q>0;
-      box.querySelector(".qty").hidden = q===0;
-      box.querySelector(".qnum b").textContent = q;
-    });
-    var n=count(), t=total();
-    var lines=document.getElementById("co-lines"); lines.innerHTML="";
-    Object.keys(MENU).forEach(function(k){
-      if(!cart[k]) return;
-      var li=document.createElement("li");
-      li.innerHTML="<span></span><span></span>";
-      li.firstChild.textContent = cart[k] + " × " + MENU[k].name;
-      li.lastChild.textContent = money(cart[k]*MENU[k].price);
-      lines.appendChild(li);
-    });
-    document.getElementById("co-total").textContent = money(t);
-    document.getElementById("co-empty").hidden = n>0;
-    document.getElementById("co-form").hidden = n===0;
-    var bar=document.getElementById("cartbar");
-    bar.hidden = n===0;
-    document.getElementById("cartbar-text").textContent = n + (n===1?" item":" items") + " · " + money(t);
-  }
-  document.querySelectorAll(".add").forEach(function(box){
-    var k=box.getAttribute("data-item");
-    box.querySelector(".js-add").addEventListener("click",function(){ cart[k]=1; render(); box.querySelector(".js-plus").focus(); });
-    box.querySelector(".js-plus").addEventListener("click",function(){ cart[k]=Math.min(24,(cart[k]||0)+1); render(); });
-    box.querySelector(".js-minus").addEventListener("click",function(){ cart[k]=Math.max(0,(cart[k]||0)-1); if(!cart[k]) delete cart[k]; render(); });
-  });
+  function setupCheckout(o){
+    var cart = {};
+    var menu = MENUS[o.mode];
+    function n(){ var c=0; for (var k in cart) c+=cart[k]; return c; }
+    function sub(){ var t=0; for (var k in cart) t+=cart[k]*menu[k]; return Math.round(t*100)/100; }
+    function checked(name){ var r=o.form.querySelector('input[name="'+name+'"]:checked'); return r ? r.value : ""; }
 
-  // hide the bar while the checkout box is on screen
-  if ("IntersectionObserver" in window){
-    var seen=false, co=document.getElementById("checkout");
-    new IntersectionObserver(function(e){ seen=e[0].isIntersecting; document.getElementById("cartbar").style.visibility = seen?"hidden":"visible"; }).observe(co);
-  }
-
-  document.getElementById("co-form").addEventListener("submit", function(e){
-    e.preventDefault();
-    var err=document.getElementById("co-error"); err.textContent="";
-    var loc=(document.querySelector('input[name="location"]:checked')||{}).value;
-    var day=(document.querySelector('input[name="day"]:checked')||{}).value;
-    var name=document.getElementById("co-name").value.trim();
-    var phone=document.getElementById("co-phone").value.trim();
-    if(!count()) { err.textContent="Please add a pie to your order."; return; }
-    if(!loc) { err.textContent="Please choose where you'll pick up."; return; }
-    if(!day) { err.textContent="Please choose your pickup day."; return; }
-    if(!name) { err.textContent="Please enter your name."; document.getElementById("co-name").focus(); return; }
-    if(phone.replace(/\D/g,"").length<10) { err.textContent="Please enter a 10-digit phone number."; document.getElementById("co-phone").focus(); return; }
-    var btn=document.getElementById("co-pay"); btn.disabled=true; btn.textContent="Opening checkout…";
-    fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({items:cart,location:loc,day:day,name:name,phone:phone})})
-      .then(function(r){ return r.json().catch(function(){return {};}).then(function(d){ return {ok:r.ok,d:d}; }); })
-      .then(function(res){
-        if(res.ok && res.d.url){ window.location.href = res.d.url; return; }
-        throw new Error(res.d.error || "We couldn't open checkout. Please try again.");
-      })
-      .catch(function(x){
-        err.textContent = (x && x.message && x.message!=="Failed to fetch") ? x.message : "We couldn't open checkout. Please try again.";
-        btn.disabled=false; btn.textContent="Pay Securely with Square";
+    function render(){
+      o.boxes.forEach(function(box){
+        var k=box.getAttribute("data-item"), q=cart[k]||0;
+        var add=box.querySelector(".js-add"), qty=box.querySelector(".qty");
+        if (add){ add.hidden = q>0; qty.hidden = q===0; }
+        box.querySelector(".qnum b").textContent = q;
       });
+      var s=sub(), loc=checked(o.locName), rate=TAX[loc], tax=rate ? Math.round(s*rate)/100 : 0;
+      if (o.lines){
+        o.lines.innerHTML="";
+        Object.keys(menu).forEach(function(k){
+          if(!cart[k]) return;
+          var li=document.createElement("li"); li.innerHTML="<span></span><span></span>";
+          li.firstChild.textContent = cart[k]+" × "+NAMES[k];
+          li.lastChild.textContent = money(cart[k]*menu[k]);
+          o.lines.appendChild(li);
+        });
+      }
+      $(o.p+"-sub").textContent = money(s);
+      $(o.p+"-taxlabel").textContent = rate ? "Tax ("+rate+"%)" : "Tax";
+      $(o.p+"-tax").textContent = rate ? money(tax) : "Pick a location";
+      $(o.p+"-total").textContent = money(s+tax);
+      if (o.onRender) o.onRender(n(), s+tax);
+    }
+
+    o.boxes.forEach(function(box){
+      var k=box.getAttribute("data-item"), add=box.querySelector(".js-add");
+      if (add) add.addEventListener("click",function(){ cart[k]=1; render(); box.querySelector(".js-plus").focus(); });
+      box.querySelector(".js-plus").addEventListener("click",function(){ cart[k]=Math.min(24,(cart[k]||0)+1); render(); });
+      box.querySelector(".js-minus").addEventListener("click",function(){ cart[k]=Math.max(0,(cart[k]||0)-1); if(!cart[k]) delete cart[k]; render(); });
+    });
+    o.form.addEventListener("change",function(){ $(o.p+"-error").textContent=""; render(); });
+
+    o.form.addEventListener("submit",function(e){
+      e.preventDefault();
+      var err=$(o.p+"-error"); err.textContent="";
+      var loc=checked(o.locName), when=checked(o.whenName);
+      var name=$(o.p+"-name").value.trim(), phone=$(o.p+"-phone").value.trim();
+      if(!n()) { err.textContent="Please add a pie to your order."; return; }
+      if(!loc) { err.textContent="Please choose where you'll pick up."; return; }
+      if(!when){ err.textContent=o.whenMsg; return; }
+      if(!name){ err.textContent="Please enter your name."; $(o.p+"-name").focus(); return; }
+      if(phone.replace(/\D/g,"").length<10){ err.textContent="Please enter a 10-digit phone number."; $(o.p+"-phone").focus(); return; }
+      var btn=$(o.p+"-pay"); btn.disabled=true; btn.textContent="Opening checkout…";
+      var body={mode:o.mode,items:cart,location:loc,name:name,phone:phone}; body[o.whenKey]=when;
+      fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
+        .then(function(r){ return r.json().catch(function(){return {};}).then(function(d){ return {ok:r.ok,d:d}; }); })
+        .then(function(res){
+          if(res.ok && res.d.url){ window.location.href=res.d.url; return; }
+          throw new Error(res.d.error || "We couldn't open checkout. Please try again.");
+        })
+        .catch(function(x){
+          err.textContent=(x && x.message && x.message!=="Failed to fetch") ? x.message : "We couldn't open checkout. Please try again.";
+          btn.disabled=false; btn.textContent="Pay Securely with Square";
+        });
+    });
+    render();
+  }
+
+  /* Thanksgiving pre-order cart */
+  setupCheckout({
+    mode:"preorder", p:"co", form:$("co-form"), lines:$("co-lines"),
+    boxes:document.querySelectorAll(".pie .add"),
+    locName:"location", whenName:"day", whenKey:"day", whenMsg:"Please choose your pickup day.",
+    onRender:function(count,total){
+      $("co-empty").hidden = count>0; $("co-form").hidden = count===0;
+      $("cartbar").hidden = count===0;
+      $("cartbar-text").textContent = count+(count===1?" item":" items")+" · "+money(total);
+    }
   });
 
-  document.getElementById("co-form").addEventListener("change",function(){ document.getElementById("co-error").textContent=""; });
+  /* Get a pie tomorrow */
+  setupCheckout({
+    mode:"tomorrow", p:"tm", form:$("tm-form"), lines:null,
+    boxes:document.querySelectorAll("#tm-order .add-row"),
+    locName:"tm-location", whenName:"tm-slot", whenKey:"slot", whenMsg:"Please choose a pickup time."
+  });
+  $("tm-open").addEventListener("click",function(e){
+    e.preventDefault();
+    var box=$("tm-order"); box.hidden=false; this.setAttribute("aria-expanded","true");
+    box.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  // ready date: tomorrow, or Monday if tomorrow is Sunday (we're closed Sunday)
+  (function(){
+    var d=new Date(); d.setDate(d.getDate()+1); if(d.getDay()===0) d.setDate(d.getDate()+1);
+    $("tm-date").textContent = d.toLocaleDateString("en-US",{weekday:"long",month:"short",day:"numeric"});
+  })();
+
+  // hide the order bar while the checkout box is on screen
+  if ("IntersectionObserver" in window){
+    new IntersectionObserver(function(e){ $("cartbar").style.visibility = e[0].isIntersecting ? "hidden" : "visible"; }).observe($("checkout"));
+  }
 
   // thank-you message after Square sends the customer back
   if (/[?&]ordered=1/.test(location.search)){
-    document.getElementById("thanks").hidden=false;
+    $("thanks").hidden=false;
     try{ history.replaceState(null,"",location.pathname); }catch(e){}
   }
 
-  // "Get a pie tomorrow" button
-  var tb=document.querySelector('[data-loc="tomorrow"]');
-  if (tb){
-    if (TOMORROW_LINK){ tb.href = TOMORROW_LINK; }
-    else tb.addEventListener("click",function(e){ e.preventDefault(); document.getElementById("soon-tomorrow").classList.add("show"); });
-  }
-  render();
-
   /* Days left to order: closes 11:59 PM Central, Friday Nov 20, 2026 */
   var ms = new Date("2026-11-20T23:59:59-06:00").getTime() - Date.now();
-  var el = document.getElementById("left");
+  var el = $("left");
   if (el){
     if (ms <= 0){ el.textContent = "(ordering is closed)"; }
-    else {
-      var d = Math.ceil(ms/86400000);
-      el.textContent = d === 1 ? "(last day!)" : "(" + d + " days left)";
-    }
+    else { var d = Math.ceil(ms/86400000); el.textContent = d === 1 ? "(last day!)" : "(" + d + " days left)"; }
   }
 })();
 </script>
