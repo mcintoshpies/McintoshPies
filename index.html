@@ -111,6 +111,7 @@ section{padding:56px 0}
 .pie .cost s{color:#9a8b80;font-weight:700;font-size:1.2rem;text-decoration-color:var(--red);text-decoration-thickness:3px}
 .pie .card-btn{margin:16px 22px 0;min-height:60px;font-size:1.15rem}
 .pie .soon{margin:10px 16px 0}
+.pie .pay-note{margin:10px 18px 0;font-size:.95rem;font-weight:600;color:var(--muted);flex:none}
 .pie .cost-note{margin:0;font-weight:800;color:var(--red-dark);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
 
 /* get a pie tomorrow */
@@ -208,6 +209,7 @@ footer strong{color:#fff}
           <div class="cost"><s><span class="sr">Regular </span>$19.99</s><b>$17.99</b></div>
           <p class="cost-note">Pre-order price</p>
           <a class="btn card-btn" data-loc="sweet" href="#pies-h" aria-label="Order Sweet Potato Pie">Order Now</a>
+          <p class="pay-note">In the payment note, write your pie, pickup day and location.</p>
           <p class="soon" id="soon-sweet">Online ordering opens soon.</p>
         </div>
         <div class="pie">
@@ -217,6 +219,7 @@ footer strong{color:#fff}
           <div class="cost"><s><span class="sr">Regular </span>$22.99</s><b>$19.99</b></div>
           <p class="cost-note">Pre-order price</p>
           <a class="btn card-btn" data-loc="pecan" href="#pies-h" aria-label="Order Pecan Pie">Order Now</a>
+          <p class="pay-note">In the payment note, write your pie, pickup day and location.</p>
           <p class="soon" id="soon-pecan">Online ordering opens soon.</p>
         </div>
         <div class="pie">
@@ -226,6 +229,7 @@ footer strong{color:#fff}
           <div class="cost"><s><span class="sr">Regular </span>$29.99</s><b>$26.99</b></div>
           <p class="cost-note">Pre-order price</p>
           <a class="btn card-btn" data-loc="cheese" href="#pies-h" aria-label="Order Sweet Potato Cheesecake">Order Now</a>
+          <p class="pay-note">In the payment note, write your pie, pickup day and location.</p>
           <p class="soon" id="soon-cheese">Online ordering opens soon.</p>
         </div>
         <div class="pie">
@@ -235,6 +239,7 @@ footer strong{color:#fff}
           <div class="cost"><s><span class="sr">Regular </span>$15.99</s><b>$13.99</b></div>
           <p class="cost-note">Pre-order price</p>
           <a class="btn card-btn" data-loc="fill" href="#pies-h" aria-label="Order Sweet Potato Pie Filling">Order Now</a>
+          <p class="pay-note">In the payment note, write your pie, pickup day and location.</p>
           <p class="soon" id="soon-fill">Online ordering opens soon.</p>
         </div>
       </div>
@@ -288,12 +293,13 @@ footer strong{color:#fff}
 <script>
 (function(){
   /* ===== PASTE YOUR ONLINE ORDERING LINKS HERE (keep the quotes) ===== */
+  var CASHAPP = "https://cash.app/$saymcintoshlittleroc";
   var ORDER_LINKS = {
-    sweet:    "https://square.link/u/Wefgrao4",   // Sweet Potato Pie payment link
-    pecan:    "https://square.link/u/nYsbjByY",   // Pecan Pie payment link
-    cheese:   "https://square.link/u/rFgvYVNq",   // Sweet Potato Cheesecake payment link
-    fill:     "https://square.link/u/kWfyoVS3",   // Sweet Potato Pie Filling payment link
-    tomorrow: ""    // "Get a pie tomorrow" ordering link
+    sweet:    CASHAPP + "/17.99",   // Sweet Potato Pie   (Square link: https://square.link/u/Wefgrao4)
+    pecan:    CASHAPP + "/19.99",   // Pecan Pie          (Square link: https://square.link/u/nYsbjByY)
+    cheese:   CASHAPP + "/26.99",   // Sweet Potato Cheesecake (Square link: https://square.link/u/rFgvYVNq)
+    fill:     CASHAPP + "/13.99",   // Sweet Potato Pie Filling (Square link: https://square.link/u/kWfyoVS3)
+    tomorrow: ""                    // "Get a pie tomorrow" ordering link
   };
 
   document.querySelectorAll("[data-loc]").forEach(function(btn){
