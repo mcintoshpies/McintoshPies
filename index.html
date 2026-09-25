@@ -100,8 +100,9 @@ section{padding:56px 0}
 /* pies */
 .pies{display:grid;gap:22px}
 @media (min-width:640px){.pies{grid-template-columns:repeat(2,1fr)}}
-.pie{position:relative;overflow:hidden;background:var(--paper);border-radius:12px;box-shadow:0 8px 24px -12px rgba(0,0,0,.25);text-align:center;padding:0 0 22px}
-.pie .pic{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:16px}
+.pie{position:relative;overflow:hidden;background:var(--paper);border-radius:12px;box-shadow:0 8px 24px -12px rgba(0,0,0,.25);text-align:center;padding:0 0 22px;display:flex;flex-direction:column}
+.pie h3 + p{flex:1}
+.pie .pic{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center;margin-bottom:16px}
 .pie .star{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;border-radius:4px;transform:rotate(-2deg)}
 .pie h3{font-size:2rem;padding:0 16px}
 .pie p{margin:6px 16px 0;color:var(--muted);font-size:1.1rem}
