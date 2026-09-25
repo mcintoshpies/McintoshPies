@@ -99,6 +99,18 @@ section{padding:48px 0}
 .pie p{margin:6px 0 0;color:var(--brown-2);font-size:1.15rem}
 .pie .star{display:inline-block;background:var(--red);color:#fff;font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:10px}
 
+/* get a pie tomorrow */
+.tomorrow{position:relative;margin:34px auto 0;max-width:720px;background:linear-gradient(135deg,var(--orange) 0%,var(--red) 100%);color:#fff;border-radius:26px;padding:40px 26px 30px;text-align:center;box-shadow:0 14px 30px -14px rgba(224,27,34,.6)}
+.tomorrow h2{color:#fff;font-size:clamp(1.7rem,5vw,2.3rem)}
+.tomorrow .tm-big{font-family:var(--display);font-weight:800;font-size:clamp(2rem,6.5vw,2.8rem);line-height:1.1;margin:6px 0 10px;color:#ffe08a}
+.tomorrow p{margin:0 auto;max-width:34ch}
+.tomorrow .tm-btn{background:#fff;color:var(--red);box-shadow:0 6px 0 #f3c9a8;max-width:360px}
+.tomorrow .tm-btn:hover{background:#fff7ec}
+.tomorrow .soon{color:#fff}
+.sticker{position:absolute;top:-16px;right:18px;background:#ffe08a;color:var(--brown);font-family:var(--display);font-weight:800;font-size:.95rem;padding:7px 14px;border-radius:999px;transform:rotate(6deg);box-shadow:0 4px 10px rgba(0,0,0,.2);animation:sway 2.8s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-2deg) scale(1.06)}}
+@media (prefers-reduced-motion: reduce){.sticker{animation:none}}
+
 /* order */
 .order{background:var(--brown);color:#fff}
 .order h2{color:#fff}
@@ -186,6 +198,14 @@ footer p{margin:4px 0}
           <div class="cost"><s><span class="sr">Regular </span>$15.99</s><b>$13.99</b></div><p class="cost-note" style="margin:0;font-weight:700;color:var(--red-dark);font-size:1rem">Pre-order price</p>
         </div>
       </div>
+      <div class="tomorrow">
+        <span class="sticker" aria-hidden="true">Ready in 24 hrs!</span>
+        <h2>Can't wait until Thanksgiving?</h2>
+        <p class="tm-big">Get a pie tomorrow!</p>
+        <p>Give us 24 hours, then pick up your pie at the location of your choice.</p>
+        <a class="big-btn tm-btn" data-loc="tomorrow" href="#">Order Now</a>
+        <p class="soon" id="soon-tomorrow">Online ordering opens soon.</p>
+      </div>
     </div>
   </section>
 
@@ -232,7 +252,8 @@ footer p{margin:4px 0}
   /* ===== PASTE YOUR ONLINE ORDERING LINKS HERE (keep the quotes) ===== */
   var ORDER_LINKS = {
     lr:  "",   // Little Rock ordering link (Toast or Square)
-    nlr: ""    // North Little Rock ordering link (Toast or Square)
+    nlr: "",   // North Little Rock ordering link (Toast or Square)
+    tomorrow: ""   // "Get a pie tomorrow" ordering link (your regular Toast ordering page)
   };
 
   document.querySelectorAll("[data-loc]").forEach(function(btn){
