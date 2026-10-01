@@ -81,6 +81,7 @@ module.exports = async (req, res) => {
   if (!cleanName) return res.status(400).json({ error: "Please enter your name." });
   if (cleanPhone.replace(/\D/g, "").length < 10) return res.status(400).json({ error: "Please enter a 10-digit phone number." });
 
+  const lineNote = `${pickup} · ${cleanName} · ${cleanPhone}`.slice(0, 500);
   const lineItems = [];
   for (const [key, qty] of Object.entries(items || {})) {
     const item = menu[key];
@@ -90,7 +91,7 @@ module.exports = async (req, res) => {
       name: item.name,
       quantity: String(q),
       base_price_money: { amount: item.cents, currency: "USD" },
-      note: pickup,
+      note: lineNote, // pickup + customer name + phone (read by the dashboard)
     });
   }
   if (!lineItems.length) return res.status(400).json({ error: "Please add a pie to your order." });
