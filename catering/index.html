@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Catering · Say McIntosh Family Restaurant</title>
-<meta name="description" content="Say McIntosh catering in Little Rock: boxed lunches and buffets for $19.99 per person, group platters for 25 to 100 people, and Southern dinners by custom quote. Request your catering online.">
+<meta name="description" content="Say McIntosh catering in Little Rock: boxed lunches from $15 per person, buffets for $19.99 per person, and group platters for 25 to 100 people. Request your catering online.">
 <link rel="icon" href="/img/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,7 +127,7 @@ fieldset:first-of-type{margin-top:0}
 legend{font-family:var(--display);text-transform:uppercase;font-size:1.5rem;color:var(--ink);margin-bottom:10px}
 .hint{margin:-4px 0 10px;color:var(--muted);font-size:1rem}
 .choices{display:grid;gap:10px}
-@media (min-width:600px){.choices.two{grid-template-columns:1fr 1fr}.choices.four{grid-template-columns:1fr 1fr}}
+@media (min-width:600px){.choices.two{grid-template-columns:1fr 1fr}.choices.four{grid-template-columns:1fr 1fr}.choices.three{grid-template-columns:repeat(3,1fr)}}
 .choice{position:relative;display:block;cursor:pointer;border:2px solid var(--line);border-radius:10px;padding:14px 16px;background:#fff}
 .choice input{position:absolute;opacity:0}
 .choice strong{display:block;font-size:1.15rem;color:var(--ink)}
@@ -183,6 +183,22 @@ footer a{color:var(--gold-lt);font-weight:700}
   .logo img{height:52px}
 }
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+.card .tiers{grid-template-columns:1fr 1fr;margin-top:14px;gap:8px}
+.card .tiers div{padding:8px}
+.card .tiers span{font-size:1.7rem}
+.menu-box{margin-top:22px}
+.menu-box h4{margin:4px 0 8px;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:#8a5e00}
+.hero{padding:44px 0 48px}
+.hero .btn-lg{margin-top:26px}
+#menu{padding:44px 0}
+.from-lbl{margin-top:6px;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.card .chips{margin-top:12px}
+.box-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:2px solid var(--line);border-radius:10px;padding:8px 8px 8px 14px;margin-top:10px}
+.box-row strong{color:var(--ink);font-size:1.1rem}
+.box-row input{width:96px;min-height:50px;font:inherit;font-size:1.2rem;text-align:center;padding:6px;border:2px solid var(--line);border-radius:8px}
+.box-row input:focus{border-color:var(--red);outline:none}
+.box-total{margin:12px 0 0;font-weight:800;color:var(--ink)}
+.req{color:var(--red);font-weight:800}
 </style>
 </head>
 <body>
@@ -204,82 +220,52 @@ footer a{color:var(--gold-lt);font-weight:700}
     <div class="wrap">
       <div class="badge-logo" aria-hidden="true"><img src="/img/logo.webp" alt=""></div>
       <span class="tag">Say McIntosh Catering</span>
-      <p class="script">Lunch or dinner, we've got you.</p>
       <h1 id="h1">Feeding a Group?</h1>
-      <p class="since">Burgers, fried catfish, BBQ, Southern sides and sweet potato pie, made the way we have since 1962. For your family, your office or your church group.</p>
-
-      <div class="hero-row">
-        <div class="price"><span class="from">Lunch from</span><b>$19.99</b><span class="note">per person</span></div>
-        <ul class="dates">
-          <li><strong>Lunch</strong> Boxed lunches &amp; buffets</li>
-          <li><strong>Platters</strong> Feed 25 to 100, from $450</li>
-          <li><strong>Dinner</strong> Southern style, custom quote</li>
-        </ul>
-      </div>
-
+      <p class="since">Boxed lunches, buffets and group platters for your family, your office or your church group. Made the way we have since 1962.</p>
       <a class="btn btn-lg" href="#request">Request Catering ↓</a>
     </div>
   </section>
 
-  <section id="lunch" aria-labelledby="lunch-h">
+  <section id="menu" aria-labelledby="menu-h">
     <div class="wrap">
-      <h2 class="sec-title" id="lunch-h">Office <span>Lunch</span></h2>
-      <p class="sec-sub">Burgers, fried catfish, BBQ and sweet potato pie for your next meeting.</p>
+      <h2 class="sec-title" id="menu-h">Catering <span>Menu</span></h2>
       <div class="cards">
         <div class="card gold">
           <h3>Boxed Lunch</h3>
-          <div class="cost">$19.99 <small>/ person</small></div>
+          <div class="from-lbl">Starting at</div>
+          <div class="cost" style="margin-top:0">$15.00 <small>/ person</small></div>
           <p>Sandwich or catfish, chips, lemonade &amp; a slice of pie.</p>
-          <h4>Pick from</h4>
           <ul class="chips"><li>Cheeseburger</li><li>Turkey Burger</li><li>Grilled Chicken Sandwich</li><li>2-Piece Fried Catfish</li></ul>
         </div>
         <div class="card">
           <h3>Buffet</h3>
           <div class="cost">$19.99 <small>/ person</small></div>
-          <p>1 or 2 meats + 2 sides, bread, lemonade &amp; pie.</p>
-          <h4>Meats</h4>
-          <ul class="chips"><li>Fried Catfish</li><li>BBQ Pulled Chicken</li><li>Sliced BBQ Beef</li><li>BBQ Hot Links</li><li>Grilled Chicken</li></ul>
-          <h4>Sides</h4>
-          <ul class="chips"><li>Coleslaw</li><li>Fried Okra</li><li>Potato Salad</li></ul>
+          <p>1 or 2 entrées + 2 sides, bread, lemonade &amp; pie.</p>
         </div>
         <div class="card dark">
           <h3>Group Platters</h3>
-          <div class="cost">$450 <small>and up</small></div>
-          <p>Serves 25 to 100. Two meats, two sides &amp; pie.</p>
-          <h4>Meats &amp; sides</h4>
-          <p style="margin-top:0">Same choices as the buffet.</p>
+          <p style="margin-top:2px">2 entrées, 2 sides &amp; pie.</p>
+          <div class="tiers">
+            <div><b>Feeds 25</b><span>$450</span></div>
+            <div><b>Feeds 50</b><span>$875</span></div>
+            <div><b>Feeds 75</b><span>$1,300</span></div>
+            <div><b>Feeds 100</b><span>$1,700</span></div>
+          </div>
         </div>
       </div>
 
-      <div class="platters" aria-label="Group platter prices">
-        <h3>Group Platters<small>Two meats, two sides &amp; pie</small></h3>
-        <div class="tiers">
-          <div><b>Feeds 25</b><span>$450</span></div>
-          <div><b>Feeds 50</b><span>$875</span></div>
-          <div><b>Feeds 75</b><span>$1,300</span></div>
-          <div><b>Feeds 100</b><span>$1,700</span></div>
+      <div class="list-box menu-box">
+        <h3>Buffet &amp; Platter Choices</h3>
+        <div class="dinner-grid">
+          <div><h4>Entrées</h4>
+            <ul><li>Fried Catfish</li><li>Fried Chicken</li><li>Barbecue Chicken</li><li>BBQ Pulled Chicken</li><li>Sliced BBQ Beef</li><li>BBQ Hot Links</li><li>Grilled Chicken Breast</li><li>Chicken &amp; Dressing</li></ul></div>
+          <div><h4>Sides</h4>
+            <ul><li>Greens</li><li>Candied Yams</li><li>Purple Hull Peas &amp; Okra</li><li>Green Beans</li><li>Barbecue Beans</li><li>Corn on the Cob</li><li>Potato Salad</li><li>Coleslaw</li></ul></div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="dinner" id="dinner" aria-labelledby="dinner-h">
-    <div class="wrap">
-      <h2 class="sec-title" id="dinner-h">Hosting a <span>Crowd?</span></h2>
-      <p class="sec-sub">Dinner, Southern style. Fried chicken, catfish, candied yams and greens.</p>
-      <div class="dinner-grid">
-        <div class="list-box">
-          <h3>Pick your entrées</h3>
-          <ul><li>Fried Catfish</li><li>Fried Chicken</li><li>Barbecue Chicken</li><li>BBQ Pulled Chicken</li><li>Sliced BBQ Beef</li><li>BBQ Hot Links</li><li>Grilled Chicken Breast</li><li>Chicken &amp; Dressing</li></ul>
-        </div>
-        <div class="list-box">
-          <h3>Pick your sides</h3>
-          <ul><li>Greens</li><li>Candied Yams</li><li>Purple Hull Peas &amp; Okra</li><li>Green Beans</li><li>Barbecue Beans</li><li>Corn on the Cob</li><li>Potato Salad</li><li>Coleslaw</li></ul>
-        </div>
-      </div>
-      <p class="quote-note">Dinner is priced by custom quote. Send us your request below and we'll reach out with your quote.</p>
       <div class="extras">
-        <h3>Don't forget dessert!</h3>
+        <h3>Add dessert &amp; drinks</h3>
         <div>
           <p><b>$19.99</b>Whole Sweet Potato Pie</p>
           <p><b>$14.99</b>Gallon of Lemonade</p>
@@ -297,11 +283,10 @@ footer a{color:var(--gold-lt);font-weight:700}
         <form id="cat-form" novalidate>
           <fieldset>
             <legend>What would you like?</legend>
-            <div class="choices four">
-              <label class="choice"><input type="radio" name="package" value="boxed"><strong>Boxed Lunch</strong><small>$19.99 per person</small></label>
-              <label class="choice"><input type="radio" name="package" value="buffet"><strong>Lunch Buffet</strong><small>$19.99 per person</small></label>
+            <div class="choices three">
+              <label class="choice"><input type="radio" name="package" value="boxed"><strong>Boxed Lunch</strong><small>From $15.00 per person</small></label>
+              <label class="choice"><input type="radio" name="package" value="buffet"><strong>Buffet</strong><small>$19.99 per person</small></label>
               <label class="choice"><input type="radio" name="package" value="platter"><strong>Group Platter</strong><small>Feeds 25–100, from $450</small></label>
-              <label class="choice"><input type="radio" name="package" value="dinner"><strong>Dinner</strong><small>Custom quote</small></label>
             </div>
           </fieldset>
 
@@ -319,8 +304,9 @@ footer a{color:var(--gold-lt);font-weight:700}
           <fieldset id="f-food" hidden>
             <legend>Choose your food</legend>
             <div id="boxed-wrap" hidden>
-              <p class="hint">Pick everything your group wants. Put how many of each in the notes below.</p>
-              <div class="choices two" id="boxed-list"></div>
+              <p class="hint">How many of each? Every boxed lunch comes with chips, lemonade &amp; a slice of pie.</p>
+              <div id="boxed-list"></div>
+              <p class="box-total" id="box-total">0 boxed lunches</p>
             </div>
             <div id="meats-wrap" hidden>
               <p class="hint" id="meats-hint"></p>
@@ -362,7 +348,7 @@ footer a{color:var(--gold-lt);font-weight:700}
               <label class="field"><span>Phone number</span><input id="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20"></label>
               <label class="field"><span>Email</span><input id="email" type="email" autocomplete="email" maxlength="120"></label>
             </div>
-            <label class="field"><span>Anything else we should know? <i>(optional)</i></span><textarea id="notes" maxlength="1500" placeholder="How many of each boxed lunch, event address, allergies, setup needs…"></textarea></label>
+            <label class="field"><span>Anything else we should know? <i>(optional)</i></span><textarea id="notes" maxlength="1500" placeholder="Event address, allergies, setup needs…"></textarea></label>
             <label class="trap" aria-hidden="true">Leave this empty<input id="website" tabindex="-1" autocomplete="off"></label>
           </fieldset>
 
@@ -385,11 +371,6 @@ footer a{color:var(--gold-lt);font-weight:700}
         </div>
       </div>
 
-      <ol class="steps" aria-label="How it works">
-        <li>Send your request with the form above.</li>
-        <li>We call or email to confirm your order.</li>
-        <li>Pay with the secure Square link we send you.</li>
-      </ol>
     </div>
   </section>
 </main>
@@ -404,14 +385,12 @@ footer a{color:var(--gold-lt);font-weight:700}
 <script>
 (function(){
   /* ===== MENU SHOWN ON THE FORM (the email estimate uses the prices in api/catering.js) ===== */
-  var PER_PERSON = 19.99;
+  var PER_PERSON = { boxed:15.00, buffet:19.99 };
   var PLATTERS = { 25:450, 50:875, 75:1300, 100:1700 };
   var ADDONS = { pie:19.99, lemonade:14.99 };
   var BOXED = ["Cheeseburger","Turkey Burger","Grilled Chicken Sandwich","2-Piece Fried Catfish"];
-  var LUNCH_MEATS = ["Fried Catfish","BBQ Pulled Chicken","Sliced BBQ Beef","BBQ Hot Links","Grilled Chicken"];
-  var LUNCH_SIDES = ["Coleslaw","Fried Okra","Potato Salad"];
-  var DINNER_MEATS = ["Fried Catfish","Fried Chicken","Barbecue Chicken","BBQ Pulled Chicken","Sliced BBQ Beef","BBQ Hot Links","Grilled Chicken Breast","Chicken & Dressing"];
-  var DINNER_SIDES = ["Greens","Candied Yams","Purple Hull Peas & Okra","Green Beans","Barbecue Beans","Corn on the Cob","Potato Salad","Coleslaw"];
+  var ENTREES = ["Fried Catfish","Fried Chicken","Barbecue Chicken","BBQ Pulled Chicken","Sliced BBQ Beef","BBQ Hot Links","Grilled Chicken Breast","Chicken & Dressing"];
+  var SIDES = ["Greens","Candied Yams","Purple Hull Peas & Okra","Green Beans","Barbecue Beans","Corn on the Cob","Potato Salad","Coleslaw"];
 
   function $(id){ return document.getElementById(id); }
   function money(n){ return "$" + n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); }
@@ -428,6 +407,22 @@ footer a{color:var(--gold-lt);font-weight:700}
       l.appendChild(i); l.appendChild(s); box.appendChild(l);
     });
   }
+  function fillBoxed(){
+    var box=$("boxed-list"); box.innerHTML="";
+    BOXED.forEach(function(t,i){
+      var row=document.createElement("label"); row.className="box-row";
+      var s=document.createElement("strong"); s.textContent=t;
+      var inp=document.createElement("input"); inp.type="number"; inp.min="0"; inp.max="2000"; inp.inputMode="numeric"; inp.placeholder="0";
+      inp.setAttribute("data-item",t); inp.setAttribute("aria-label","How many "+t);
+      inp.addEventListener("input",render);
+      row.appendChild(s); row.appendChild(inp); box.appendChild(row);
+    });
+  }
+  function boxedQty(){
+    var out={}, n=0;
+    [].forEach.call($("boxed-list").querySelectorAll("input"),function(i){ var q=parseInt(i.value,10); if(q>0){ out[i.getAttribute("data-item")]=q; n+=q; } });
+    return {items:out, total:n};
+  }
   // buffet and platters: up to 2 meats and 2 sides
   function capChecks(listId, max){
     var boxes=$(listId).querySelectorAll("input"), n=0;
@@ -439,21 +434,17 @@ footer a{color:var(--gold-lt);font-weight:700}
   function setPackage(p){
     if (p===current) return; current=p;
     ["f-size","f-food","f-extras"].forEach(function(id){ $(id).hidden=false; });
+    $("f-size").hidden = p==="boxed";
     $("guests-wrap").hidden = p==="platter";
     $("platter-wrap").hidden = p!=="platter";
     $("boxed-wrap").hidden = p!=="boxed";
     $("meats-wrap").hidden = p==="boxed";
     $("sides-wrap").hidden = p==="boxed";
-    if (p==="boxed") fill("boxed-list", BOXED);
+    if (p==="boxed") fillBoxed();
     if (p==="buffet" || p==="platter"){
-      limit=2; fill("meats-list", LUNCH_MEATS); fill("sides-list", LUNCH_SIDES);
-      $("meats-hint").textContent = p==="buffet" ? "Choose 1 or 2 meats." : "Choose 2 meats.";
+      limit=2; fill("meats-list", ENTREES); fill("sides-list", SIDES);
+      $("meats-hint").textContent = p==="buffet" ? "Choose 1 or 2 entrées." : "Choose 2 entrées.";
       $("sides-hint").textContent = "Choose 2 sides.";
-    }
-    if (p==="dinner"){
-      limit=0; fill("meats-list", DINNER_MEATS); fill("sides-list", DINNER_SIDES);
-      $("meats-hint").textContent = "Choose your entrées.";
-      $("sides-hint").textContent = "Choose your sides.";
     }
     render();
   }
@@ -462,21 +453,25 @@ footer a{color:var(--gold-lt);font-weight:700}
     var p=checked("package");
     if (!p){ $("est").hidden=true; return; }
     capChecks("meats-list", limit); capChecks("sides-list", limit);
-    var food=null, label="Food";
-    if (p==="boxed" || p==="buffet"){
+    var food=0, label="Food";
+    if (p==="boxed"){
+      var bq=boxedQty().total;
+      $("box-total").textContent = bq + (bq===1?" boxed lunch":" boxed lunches");
+      food = bq*PER_PERSON.boxed; label = bq + (bq===1?" boxed lunch":" boxed lunches") + " × from " + money(PER_PERSON.boxed);
+    } else if (p==="buffet"){
       var g=parseInt($("guests").value,10)||0;
-      food = g*PER_PERSON; label = g + (g===1?" person":" people") + " × " + money(PER_PERSON);
+      food = g*PER_PERSON[p]; label = g + (g===1?" person":" people") + " × " + (p==="boxed"?"from ":"") + money(PER_PERSON[p]);
     } else if (p==="platter"){
       var s=checked("platter"); food = s ? PLATTERS[s] : 0; label = s ? "Platter, feeds "+s : "Platter";
-    } else { label="Dinner"; }
+    }
     var add=addons.pie*ADDONS.pie + addons.lemonade*ADDONS.lemonade;
     $("est").hidden=false;
     $("est-label").textContent=label;
-    $("est-food").textContent = food===null ? "Custom quote" : money(food);
+    $("est-food").textContent = money(food);
     $("est-add-row").hidden = !add;
     $("est-add").textContent = money(add);
-    $("est-total").textContent = food===null ? "Quote" : money(food+add);
-    $("est-note").textContent = food===null ? "We'll send you a custom quote for dinner." : "Plus sales tax. We'll confirm your final price.";
+    $("est-total").textContent = (p==="boxed"?"From ":"") + money(food+add);
+    $("est-note").textContent = p==="boxed" ? "Boxed lunch prices start at $15.00 and depend on your picks. Plus sales tax. We'll confirm your final price." : "Plus sales tax. We'll confirm your final price.";
   }
 
   document.querySelectorAll(".addon").forEach(function(row){
@@ -502,9 +497,18 @@ footer a{color:var(--gold-lt);font-weight:700}
     var p=checked("package");
     function fail(msg, el){ err.textContent=msg; if(el) el.focus(); }
     if(!p) return fail("Please choose what you'd like to order.");
-    var guests=parseInt($("guests").value,10);
+    var guests=parseInt($("guests").value,10), bq=boxedQty();
+    var nM=ticks("meats-list").length, nS=ticks("sides-list").length;
+    if(p==="boxed"){
+      if(!bq.total) return fail("Please enter how many of each boxed lunch you'd like.", $("boxed-list").querySelector("input"));
+      guests=bq.total;
+    }
     if(p==="platter" && !checked("platter")) return fail("Please choose a platter size.");
-    if(p!=="platter" && !(guests>=1)) return fail("Please enter how many people you're feeding.", $("guests"));
+    if(p==="buffet" && !(guests>=1)) return fail("Please enter how many people you're feeding.", $("guests"));
+    if(p==="buffet" && (nM<1 || nM>2)) return fail("Please choose 1 or 2 entrées.", $("meats-list").querySelector("input"));
+    if(p==="platter" && nM!==2) return fail("Please choose 2 entrées.", $("meats-list").querySelector("input"));
+    if(p!=="boxed" && nS!==2) return fail("Please choose 2 sides.", $("sides-list").querySelector("input"));
+    if(!checked("event")) return fail("Please tell us what kind of event it is.", form.querySelector('input[name="event"]'));
     if(!$("date").value) return fail("Please choose a date for your event.", $("date"));
     if(!$("time").value) return fail("Please choose a time.", $("time"));
     var name=$("name").value.trim(), phone=$("phone").value.trim(), email=$("email").value.trim();
@@ -514,7 +518,7 @@ footer a{color:var(--gold-lt);font-weight:700}
 
     var body={
       package:p, guests:guests, platter:checked("platter"),
-      boxed: p==="boxed" ? ticks("boxed-list") : [],
+      boxedQty: p==="boxed" ? bq.items : {},
       meats: p!=="boxed" ? ticks("meats-list") : [],
       sides: p!=="boxed" ? ticks("sides-list") : [],
       addons:addons, event:checked("event"), date:$("date").value, time:$("time").value,

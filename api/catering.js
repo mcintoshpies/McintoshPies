@@ -9,23 +9,20 @@
 //                    delivers to the email address you signed up to Resend with)
 
 // Menu and prices are set HERE, so the estimate in the email can't be changed from a browser.
-const PER_PERSON = 1999; // cents: boxed lunch and buffet
+const PER_PERSON = { boxed: 1500, buffet: 1999 }; // cents: boxed lunch (starting price) and buffet
 const PLATTERS = { 25: 45000, 50: 87500, 75: 130000, 100: 170000 };
 const ADDONS = {
   pie:      { name: "Whole Sweet Potato Pie", cents: 1999 },
   lemonade: { name: "Gallon of Lemonade",     cents: 1499 },
 };
 const PACKAGES = {
-  boxed:   "Boxed Lunch ($19.99/person)",
-  buffet:  "Lunch Buffet ($19.99/person)",
+  boxed:   "Boxed Lunch (from $15.00/person)",
+  buffet:  "Buffet ($19.99/person)",
   platter: "Group Platter",
-  dinner:  "Dinner (custom quote)",
 };
 const BOXED = ["Cheeseburger", "Turkey Burger", "Grilled Chicken Sandwich", "2-Piece Fried Catfish"];
-const LUNCH_MEATS = ["Fried Catfish", "BBQ Pulled Chicken", "Sliced BBQ Beef", "BBQ Hot Links", "Grilled Chicken"];
-const LUNCH_SIDES = ["Coleslaw", "Fried Okra", "Potato Salad"];
-const DINNER_MEATS = ["Fried Catfish", "Fried Chicken", "Barbecue Chicken", "BBQ Pulled Chicken", "Sliced BBQ Beef", "BBQ Hot Links", "Grilled Chicken Breast", "Chicken & Dressing"];
-const DINNER_SIDES = ["Greens", "Candied Yams", "Purple Hull Peas & Okra", "Green Beans", "Barbecue Beans", "Corn on the Cob", "Potato Salad", "Coleslaw"];
+const ENTREES = ["Fried Catfish", "Fried Chicken", "Barbecue Chicken", "BBQ Pulled Chicken", "Sliced BBQ Beef", "BBQ Hot Links", "Grilled Chicken Breast", "Chicken & Dressing"];
+const SIDES = ["Greens", "Candied Yams", "Purple Hull Peas & Okra", "Green Beans", "Barbecue Beans", "Corn on the Cob", "Potato Salad", "Coleslaw"];
 const RESTAURANT = "Little Rock · 6223 Colonel Glenn Rd"; // all catering is handled by Little Rock
 const EVENTS = { family: "Family gathering", office: "Office / work", church: "Church group", other: "Other event" };
 
@@ -73,14 +70,24 @@ module.exports = async (req, res) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: "Please enter a valid email address." });
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < todayChicago()) return res.status(400).json({ error: "Please choose a date for your event." });
   if (!/^\d{2}:\d{2}$/.test(time)) return res.status(400).json({ error: "Please choose a time." });
-  if (pkg === "platter" && !platter) return res.status(400).json({ error: "Please choose a platter size." });
-  if (pkg !== "platter" && !(guests >= 1 && guests <= 2000)) return res.status(400).json({ error: "Please enter how many people you're feeding." });
+  if (!event) return res.status(400).json({ error: "Please tell us what kind of event it is." });
 
-  // What they picked, checked against the menu for that package
-  let boxed = [], meats = [], sides = [];
-  if (pkg === "boxed") boxed = pick(b.boxed, BOXED);
-  if (pkg === "buffet" || pkg === "platter") { meats = pick(b.meats, LUNCH_MEATS).slice(0, 2); sides = pick(b.sides, LUNCH_SIDES).slice(0, 2); }
-  if (pkg === "dinner") { meats = pick(b.meats, DINNER_MEATS); sides = pick(b.sides, DINNER_SIDES); }
+  // What they picked, checked against the menu for that package. Every choice is required.
+  let boxed = [], meats = [], sides = [], people = guests;
+  if (pkg === "boxed") {
+    const q = b.boxedQty || {};
+    boxed = BOXED.map((item) => ({ item, qty: parseInt(q[item], 10) })).filter((x) => x.qty >= 1 && x.qty <= 2000);
+    people = boxed.reduce((t, x) => t + x.qty, 0);
+    if (!people || people > 2000) return res.status(400).json({ error: "Please enter how many of each boxed lunch you'd like." });
+  } else {
+    meats = [...new Set(pick(b.meats, ENTREES))];
+    sides = [...new Set(pick(b.sides, SIDES))];
+    if (pkg === "platter" && !platter) return res.status(400).json({ error: "Please choose a platter size." });
+    if (pkg === "buffet" && !(guests >= 1 && guests <= 2000)) return res.status(400).json({ error: "Please enter how many people you're feeding." });
+    if (pkg === "buffet" && (meats.length < 1 || meats.length > 2)) return res.status(400).json({ error: "Please choose 1 or 2 entrées." });
+    if (pkg === "platter" && meats.length !== 2) return res.status(400).json({ error: "Please choose 2 entrées." });
+    if (sides.length !== 2) return res.status(400).json({ error: "Please choose 2 sides." });
+  }
 
   const addons = [];
   for (const k of Object.keys(ADDONS)) {
@@ -88,12 +95,9 @@ module.exports = async (req, res) => {
     if (q >= 1 && q <= 200) addons.push({ ...ADDONS[k], qty: q });
   }
 
-  // Estimate before tax (dinner is quoted by staff)
-  let est = null;
-  if (pkg === "boxed" || pkg === "buffet") est = guests * PER_PERSON;
-  if (pkg === "platter") est = PLATTERS[platter];
+  // Estimate before tax (boxed lunch uses the $15 starting price)
   const addonCents = addons.reduce((t, a) => t + a.qty * a.cents, 0);
-  if (est != null) est += addonCents;
+  const est = (pkg === "platter" ? PLATTERS[platter] : people * PER_PERSON[pkg]) + addonCents;
 
   const when = new Date(date + "T12:00:00Z").toLocaleDateString("en-US", { timeZone: "UTC", weekday: "long", month: "long", day: "numeric", year: "numeric" });
   const [hh, mm] = time.split(":").map(Number);
@@ -104,17 +108,17 @@ module.exports = async (req, res) => {
     ["Organization", org || "—"],
     ["Phone", phone],
     ["Email", email],
-    ["Event", event ? EVENTS[event] : "—"],
+    ["Event", EVENTS[event]],
     ["Date & time", `${when} at ${clock}`],
     ["Restaurant", RESTAURANT],
     ["Package", PACKAGES[pkg]],
-    pkg === "platter" ? ["Platter size", `Feeds ${platter} (${money(PLATTERS[platter])})`] : ["Number of people", String(guests)],
+    pkg === "platter" ? ["Platter size", `Feeds ${platter} (${money(PLATTERS[platter])})`] : ["Number of people", String(people)],
   ];
-  if (pkg === "boxed") rows.push(["Boxed lunch picks", boxed.join(", ") || "Not chosen yet"]);
-  if (pkg !== "boxed") rows.push([pkg === "dinner" ? "Entrées" : "Meats", meats.join(", ") || "Not chosen yet"]);
-  if (pkg !== "boxed") rows.push(["Sides", sides.join(", ") || "Not chosen yet"]);
+  if (pkg === "boxed") rows.push(["Boxed lunches", boxed.map((x) => `${x.qty} × ${x.item}`).join(", ")]);
+  if (pkg !== "boxed") rows.push(["Entrées", meats.join(", ")]);
+  if (pkg !== "boxed") rows.push(["Sides", sides.join(", ")]);
   rows.push(["Add-ons", addons.map((a) => `${a.qty} × ${a.name} (${money(a.qty * a.cents)})`).join(", ") || "None"]);
-  rows.push(["Estimate (before tax)", est != null ? money(est) : `Custom quote needed${addonCents ? " (add-ons " + money(addonCents) + ")" : ""}`]);
+  rows.push(["Estimate (before tax)", (pkg === "boxed" ? "From " : "") + money(est)]);
   rows.push(["Notes", notes || "—"]);
 
   const subject = `Catering request: ${name}${org ? " (" + org + ")" : ""} · ${PACKAGES[pkg].split(" (")[0]} · ${when}`.slice(0, 200);
