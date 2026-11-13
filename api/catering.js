@@ -10,7 +10,6 @@
 
 // Menu and prices are set HERE, so the estimate in the email can't be changed from a browser.
 const PER_PERSON = { boxed: 1500, buffet: 1999 }; // cents: boxed lunch (starting price) and buffet
-const PLATTERS = { 25: 45000, 50: 87500, 75: 130000, 100: 170000 };
 const ADDONS = {
   pie:      { name: "Whole Sweet Potato Pie", cents: 1999 },
   lemonade: { name: "Gallon of Lemonade",     cents: 1499 },
@@ -18,7 +17,6 @@ const ADDONS = {
 const PACKAGES = {
   boxed:   "Boxed Lunch (from $15.00/person)",
   buffet:  "Buffet ($19.99/person)",
-  platter: "Group Platter",
 };
 const BOXED = ["Cheeseburger", "Turkey Burger", "Grilled Chicken Sandwich", "2-Piece Fried Catfish"];
 const ENTREES = ["Fried Catfish", "Fried Chicken", "Barbecue Chicken", "BBQ Pulled Chicken", "Sliced BBQ Beef", "BBQ Hot Links", "Grilled Chicken Breast", "Chicken & Dressing"];
@@ -63,7 +61,6 @@ module.exports = async (req, res) => {
   const notes = clean(b.notes, 1500);
   const event = EVENTS[b.event] ? b.event : "";
   const guests = parseInt(b.guests, 10);
-  const platter = PLATTERS[b.platter] ? Number(b.platter) : 0;
 
   if (!name) return res.status(400).json({ error: "Please enter your name." });
   if (phone.replace(/\D/g, "").length < 10) return res.status(400).json({ error: "Please enter a 10-digit phone number." });
@@ -84,10 +81,8 @@ module.exports = async (req, res) => {
   } else {
     meats = [...new Set(pick(b.meats, ENTREES))];
     sides = [...new Set(pick(b.sides, SIDES))];
-    if (pkg === "platter" && !platter) return res.status(400).json({ error: "Please choose a platter size." });
     if (pkg === "buffet" && !(guests >= 1 && guests <= 2000)) return res.status(400).json({ error: "Please enter how many people you're feeding." });
     if (pkg === "buffet" && (meats.length < 1 || meats.length > 2)) return res.status(400).json({ error: "Please choose 1 or 2 entrées." });
-    if (pkg === "platter" && meats.length !== 2) return res.status(400).json({ error: "Please choose 2 entrées." });
     if (sides.length !== 2) return res.status(400).json({ error: "Please choose 2 sides." });
   }
 
@@ -99,7 +94,7 @@ module.exports = async (req, res) => {
 
   // Estimate before tax (boxed lunch uses the $15 starting price)
   const addonCents = addons.reduce((t, a) => t + a.qty * a.cents, 0);
-  const est = (pkg === "platter" ? PLATTERS[platter] : people * PER_PERSON[pkg]) + addonCents;
+  const est = people * PER_PERSON[pkg] + addonCents;
 
   const when = new Date(date + "T12:00:00Z").toLocaleDateString("en-US", { timeZone: "UTC", weekday: "long", month: "long", day: "numeric", year: "numeric" });
   const [hh, mm] = time.split(":").map(Number);
@@ -114,7 +109,7 @@ module.exports = async (req, res) => {
     ["Date & time", `${when} at ${clock}`],
     ["Restaurant", RESTAURANT],
     ["Package", PACKAGES[pkg]],
-    pkg === "platter" ? ["Platter size", `Feeds ${platter} (${money(PLATTERS[platter])})`] : ["Number of people", String(people)],
+    ["Number of people", String(people)],
   ];
   if (pkg === "boxed") rows.push(["Boxed lunches", boxed.map((x) => `${x.qty} × ${x.item}`).join(", ")]);
   if (pkg === "boxed") rows.push(["Boxed lunch side" + (sides.length > 1 ? "s (split evenly)" : ""), sides.join(", ")]);
