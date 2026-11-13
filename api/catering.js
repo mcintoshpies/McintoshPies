@@ -9,20 +9,24 @@
 //                    delivers to the email address you signed up to Resend with)
 
 // Menu and prices are set HERE, so the estimate in the email can't be changed from a browser.
-const PER_PERSON = { boxed: 1500, buffet: 1999 }; // cents: boxed lunch (starting price) and buffet
+const PER_PERSON = { boxed: 1500, buffet: 1999 }; // cents: starting prices for boxed lunch and buffet
 const ADDONS = {
   pie:      { name: "Whole Sweet Potato Pie", cents: 1999 },
   lemonade: { name: "Gallon of Lemonade",     cents: 1499 },
 };
 const PACKAGES = {
   boxed:   "Boxed Lunch (from $15.00/person)",
-  buffet:  "Buffet ($19.99/person)",
+  buffet:  "Southern Style Buffet (from $19.99/person)",
 };
 const BOXED = ["Cheeseburger", "Turkey Burger", "Grilled Chicken Sandwich", "2-Piece Fried Catfish"];
 const ENTREES = ["Fried Catfish", "Fried Chicken", "Barbecue Chicken", "BBQ Pulled Chicken", "Sliced BBQ Beef", "BBQ Hot Links", "Grilled Chicken Breast", "Chicken & Dressing"];
 const SIDES = ["Greens", "Candied Yams", "Purple Hull Peas & Okra", "Green Beans", "Barbecue Beans", "Corn on the Cob", "Potato Salad", "Coleslaw"];
 const RESTAURANT = "Little Rock · 6223 Colonel Glenn Rd"; // all catering is handled by Little Rock
-const EVENTS = { family: "Family gathering", office: "Office / work", church: "Church group", other: "Other event" };
+const METHODS = {
+  delivery: "Delivery within 15 miles (included)",
+  far:      "Delivery more than 15 miles (additional fee, needs a quote)",
+  pickup:   "Pickup at Little Rock (6223 Colonel Glenn Rd)",
+};
 
 const clean = (v, max) => String(v == null ? "" : v).replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, max);
 const pick = (list, allowed) => (Array.isArray(list) ? list : []).map(String).filter((x) => allowed.includes(x));
@@ -59,15 +63,21 @@ module.exports = async (req, res) => {
   const date = clean(b.date, 10);
   const time = clean(b.time, 5);
   const notes = clean(b.notes, 1500);
-  const event = EVENTS[b.event] ? b.event : "";
+  const method = METHODS[b.method] ? b.method : "";
+  const street = clean(b.street, 150), city = clean(b.city, 60), zip = clean(b.zip, 10);
   const guests = parseInt(b.guests, 10);
 
   if (!name) return res.status(400).json({ error: "Please enter your name." });
   if (phone.replace(/\D/g, "").length < 10) return res.status(400).json({ error: "Please enter a 10-digit phone number." });
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: "Please enter a valid email address." });
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < todayChicago()) return res.status(400).json({ error: "Please choose a date for your event." });
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < todayChicago()) return res.status(400).json({ error: "Please choose a date." });
   if (!/^\d{2}:\d{2}$/.test(time)) return res.status(400).json({ error: "Please choose a time." });
-  if (!event) return res.status(400).json({ error: "Please tell us what kind of event it is." });
+  if (!method) return res.status(400).json({ error: "Please choose delivery or pickup." });
+  if (method !== "pickup") {
+    if (!street) return res.status(400).json({ error: "Please enter the delivery address." });
+    if (!city) return res.status(400).json({ error: "Please enter the city." });
+    if (!/^\d{5}(-\d{4})?$/.test(zip)) return res.status(400).json({ error: "Please enter a 5-digit ZIP code." });
+  }
 
   // What they picked, checked against the menu for that package. Every choice is required.
   let boxed = [], meats = [], sides = [], people = guests;
@@ -105,8 +115,9 @@ module.exports = async (req, res) => {
     ["Organization", org || "—"],
     ["Phone", phone],
     ["Email", email],
-    ["Event", EVENTS[event]],
-    ["Date & time", `${when} at ${clock}`],
+    ["Delivery or pickup", METHODS[method]],
+    ...(method !== "pickup" ? [["Delivery address", `${street}, ${city} ${zip}`]] : []),
+    [method === "pickup" ? "Pickup date & time" : "Delivery date & time", `${when} at ${clock}`],
     ["Restaurant", RESTAURANT],
     ["Package", PACKAGES[pkg]],
     ["Number of people", String(people)],
@@ -116,11 +127,11 @@ module.exports = async (req, res) => {
   if (pkg !== "boxed") rows.push(["Entrées", meats.join(", ")]);
   if (pkg !== "boxed") rows.push(["Sides", sides.join(", ")]);
   rows.push(["Add-ons", addons.map((a) => `${a.qty} × ${a.name} (${money(a.qty * a.cents)})`).join(", ") || "None"]);
-  rows.push(["Estimate (before tax)", (pkg === "boxed" ? "From " : "") + money(est)]);
+  rows.push(["Estimate (before tax)", "From " + money(est) + (method === "far" ? " + delivery fee (not quoted yet)" : "")]);
   rows.push(["Notes", notes || "—"]);
 
   const subject = `Catering request: ${name}${org ? " (" + org + ")" : ""} · ${PACKAGES[pkg].split(" (")[0]} · ${when}`.slice(0, 200);
-  const nextStep = "Next step: confirm with the customer, then send a Square payment link or invoice (Square Dashboard → Payment links or Invoices). Reply to this email to reach the customer.";
+  const nextStep = (method === "far" ? "This delivery is more than 15 miles: check the distance and quote the delivery fee. " : "") + "Next step: confirm with the customer, then send a Square payment link or invoice (Square Dashboard → Payment links or Invoices). Reply to this email to reach the customer.";
   const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n") + "\n\n" + nextStep;
   const html =
     `<div style="font-family:Arial,sans-serif;font-size:15px;color:#1c1714">` +

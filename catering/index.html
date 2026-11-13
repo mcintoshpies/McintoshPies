@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Catering · Say McIntosh Family Restaurant</title>
-<meta name="description" content="Say McIntosh catering in Little Rock: boxed lunches from $15 per person, buffets for $19.99 per person. Request your catering online.">
+<meta name="description" content="Say McIntosh catering in Little Rock: boxed lunches from $15 per person, Southern style buffets from $19.99 per person. Free delivery within 15 miles. Request your catering online.">
 <link rel="icon" href="/img/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -190,6 +190,12 @@ footer a{color:var(--gold-lt);font-weight:700}
 .box-total{margin:12px 0 0;font-weight:800;color:var(--ink)}
 .req{color:var(--red);font-weight:800}
 @media (min-width:760px){#menu .cards{grid-template-columns:1fr 1fr}}
+.delivery{margin-top:22px;display:flex;gap:18px;align-items:flex-start;background:var(--ink);color:#fff;border-radius:16px;padding:20px 24px}
+.delivery svg{width:44px;height:44px;flex:none;color:var(--gold-lt);margin-top:2px}
+.delivery h3{color:#fff;font-size:1.7rem}
+.delivery p{margin:6px 0 0;color:#e9e0d7;font-size:1.05rem}
+.row3{display:grid;gap:0 14px}
+@media (min-width:600px){.row3{grid-template-columns:2fr 1fr}}
 </style>
 </head>
 <body>
@@ -212,7 +218,7 @@ footer a{color:var(--gold-lt);font-weight:700}
       <div class="badge-logo" aria-hidden="true"><img src="/img/logo.webp" alt=""></div>
       <span class="tag">Say McIntosh Catering</span>
       <h1 id="h1">Feeding a Group?</h1>
-      <p class="since">Boxed lunches and buffets for your family, your office or your church group. Made the way we have since 1962.</p>
+      <p class="since">Boxed lunches and Southern style buffets for your family, your office or your church group. Made the way we have since 1962.</p>
       <a class="btn btn-lg" href="#request">Request Catering ↓</a>
     </div>
   </section>
@@ -229,8 +235,9 @@ footer a{color:var(--gold-lt);font-weight:700}
           <ul class="chips"><li>Cheeseburger</li><li>Turkey Burger</li><li>Grilled Chicken Sandwich</li><li>2-Piece Fried Catfish</li></ul>
         </div>
         <div class="card">
-          <h3>Buffet</h3>
-          <div class="cost">$19.99 <small>/ person</small></div>
+          <h3>Southern Style Buffet</h3>
+          <div class="from-lbl">Starting at</div>
+          <div class="cost" style="margin-top:0">$19.99 <small>/ person</small></div>
           <p>1 or 2 entrées + 2 sides, bread, lemonade &amp; pie.</p>
         </div>
       </div>
@@ -252,13 +259,21 @@ footer a{color:var(--gold-lt);font-weight:700}
           <p><b>$14.99</b>Gallon of Lemonade</p>
         </div>
       </div>
+
+      <div class="delivery">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        <div>
+          <h3>Free delivery within 15 miles</h3>
+          <p>Delivery is included within 15 miles of our Little Rock restaurant (6223 Colonel Glenn Rd). Farther than that? Pick up your order at our Little Rock location, or request delivery for an additional fee on the form below.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="request" id="request" aria-labelledby="req-h">
     <div class="wrap">
       <h2 class="sec-title" id="req-h">Request Catering</h2>
-      <p class="sec-sub">Tell us about your event. Nothing is charged now.</p>
+      <p class="sec-sub">Tell us what you need. Nothing is charged now.</p>
 
       <div class="box">
         <form id="cat-form" novalidate>
@@ -266,7 +281,7 @@ footer a{color:var(--gold-lt);font-weight:700}
             <legend>What would you like?</legend>
             <div class="choices two">
               <label class="choice"><input type="radio" name="package" value="boxed"><strong>Boxed Lunch</strong><small>From $15.00 per person</small></label>
-              <label class="choice"><input type="radio" name="package" value="buffet"><strong>Buffet</strong><small>$19.99 per person</small></label>
+              <label class="choice"><input type="radio" name="package" value="buffet"><strong>Southern Style Buffet</strong><small>From $19.99 per person</small></label>
             </div>
           </fieldset>
 
@@ -301,16 +316,23 @@ footer a{color:var(--gold-lt);font-weight:700}
           </fieldset>
 
           <fieldset>
-            <legend id="l-event">Your event</legend>
-            <div class="choices four">
-              <label class="choice mini"><input type="radio" name="event" value="family"><strong>Family gathering</strong></label>
-              <label class="choice mini"><input type="radio" name="event" value="office"><strong>Office / work</strong></label>
-              <label class="choice mini"><input type="radio" name="event" value="church"><strong>Church group</strong></label>
-              <label class="choice mini"><input type="radio" name="event" value="other"><strong>Something else</strong></label>
+            <legend>Delivery or pickup</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="method" value="delivery"><strong>Delivery, within 15 miles</strong><small>Included, no extra charge</small></label>
+              <label class="choice"><input type="radio" name="method" value="far"><strong>Delivery, more than 15 miles</strong><small>Additional fee. We'll confirm the fee with you before you pay.</small></label>
+              <label class="choice"><input type="radio" name="method" value="pickup"><strong>Pickup in Little Rock</strong><small>6223 Colonel Glenn Rd</small></label>
+            </div>
+            <div id="addr-wrap" hidden>
+              <label class="field"><span>Delivery address</span><input id="street" autocomplete="street-address" maxlength="150" placeholder="Street address"></label>
+              <div class="row3">
+                <label class="field"><span>City</span><input id="city" autocomplete="address-level2" maxlength="60"></label>
+                <label class="field"><span>ZIP</span><input id="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10"></label>
+              </div>
+              <p class="hint" style="margin-top:10px">Not sure how far you are? Choose your best guess. We'll check the distance and let you know if there's a fee.</p>
             </div>
             <div class="row2">
-              <label class="field"><span>Date</span><input id="date" type="date"></label>
-              <label class="field"><span>Time</span><input id="time" type="time" step="900"></label>
+              <label class="field"><span id="date-lbl">Date</span><input id="date" type="date"></label>
+              <label class="field"><span id="time-lbl">Time</span><input id="time" type="time" step="900"></label>
             </div>
           </fieldset>
 
@@ -322,7 +344,7 @@ footer a{color:var(--gold-lt);font-weight:700}
               <label class="field"><span>Phone number</span><input id="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20"></label>
               <label class="field"><span>Email</span><input id="email" type="email" autocomplete="email" maxlength="120"></label>
             </div>
-            <label class="field"><span>Anything else we should know? <i>(optional)</i></span><textarea id="notes" maxlength="1500" placeholder="Event address, allergies, setup needs…"></textarea></label>
+            <label class="field"><span>Anything else we should know? <i>(optional)</i></span><textarea id="notes" maxlength="1500" placeholder="Allergies, setup needs, gate codes, where to drop off…"></textarea></label>
             <label class="trap" aria-hidden="true">Leave this empty<input id="website" tabindex="-1" autocomplete="off"></label>
           </fieldset>
 
@@ -434,7 +456,7 @@ footer a{color:var(--gold-lt);font-weight:700}
       food = bq*PER_PERSON.boxed; label = bq + (bq===1?" boxed lunch":" boxed lunches") + " × from " + money(PER_PERSON.boxed);
     } else if (p==="buffet"){
       var g=parseInt($("guests").value,10)||0;
-      food = g*PER_PERSON.buffet; label = g + (g===1?" person":" people") + " × " + money(PER_PERSON.buffet);
+      food = g*PER_PERSON.buffet; label = g + (g===1?" person":" people") + " × from " + money(PER_PERSON.buffet);
     }
     var add=addons.pie*ADDONS.pie + addons.lemonade*ADDONS.lemonade;
     $("est").hidden=false;
@@ -442,8 +464,9 @@ footer a{color:var(--gold-lt);font-weight:700}
     $("est-food").textContent = money(food);
     $("est-add-row").hidden = !add;
     $("est-add").textContent = money(add);
-    $("est-total").textContent = (p==="boxed"?"From ":"") + money(food+add);
-    $("est-note").textContent = p==="boxed" ? "Boxed lunch prices start at $15.00 and depend on your picks. Plus sales tax. We'll confirm your final price." : "Plus sales tax. We'll confirm your final price.";
+    $("est-total").textContent = "From " + money(food+add);
+    var far = checked("method")==="far";
+    $("est-note").textContent = (p==="boxed" ? "Boxed lunch prices start at $15.00 and depend on your picks. " : "Buffet prices start at $19.99 and depend on your picks. ") + "Plus sales tax" + (far ? " and a delivery fee" : "") + ". We'll confirm your final price.";
   }
 
   document.querySelectorAll(".addon").forEach(function(row){
@@ -454,6 +477,12 @@ footer a{color:var(--gold-lt);font-weight:700}
   form.addEventListener("change",function(e){
     $("err").textContent="";
     if (e.target.name==="package") setPackage(e.target.value);
+    if (e.target.name==="method"){
+      var m=e.target.value;
+      $("addr-wrap").hidden = m==="pickup";
+      $("date-lbl").textContent = m==="pickup" ? "Pickup date" : "Delivery date";
+      $("time-lbl").textContent = m==="pickup" ? "Pickup time" : "Delivery time";
+    }
     render();
   });
   $("guests").addEventListener("input",render);
@@ -479,8 +508,14 @@ footer a{color:var(--gold-lt);font-weight:700}
     if(p==="buffet" && (nM<1 || nM>2)) return fail("Please choose 1 or 2 entrées.", $("meats-list").querySelector("input"));
     if(p==="boxed" && (nS<1 || nS>2)) return fail("Please choose 1 or 2 sides for your boxed lunches.", $("sides-list").querySelector("input"));
     if(p!=="boxed" && nS!==2) return fail("Please choose 2 sides.", $("sides-list").querySelector("input"));
-    if(!checked("event")) return fail("Please tell us what kind of event it is.", form.querySelector('input[name="event"]'));
-    if(!$("date").value) return fail("Please choose a date for your event.", $("date"));
+    var method=checked("method");
+    if(!method) return fail("Please choose delivery or pickup.", form.querySelector('input[name="method"]'));
+    if(method!=="pickup"){
+      if(!$("street").value.trim()) return fail("Please enter the delivery address.", $("street"));
+      if(!$("city").value.trim()) return fail("Please enter the city.", $("city"));
+      if(!/^\d{5}(-\d{4})?$/.test($("zip").value.trim())) return fail("Please enter a 5-digit ZIP code.", $("zip"));
+    }
+    if(!$("date").value) return fail("Please choose a date.", $("date"));
     if(!$("time").value) return fail("Please choose a time.", $("time"));
     var name=$("name").value.trim(), phone=$("phone").value.trim(), email=$("email").value.trim();
     if(!name) return fail("Please enter your name.", $("name"));
@@ -492,7 +527,7 @@ footer a{color:var(--gold-lt);font-weight:700}
       boxedQty: p==="boxed" ? bq.items : {},
       meats: p!=="boxed" ? ticks("meats-list") : [],
       sides: ticks("sides-list"),
-      addons:addons, event:checked("event"), date:$("date").value, time:$("time").value,
+      addons:addons, method:method, street:$("street").value.trim(), city:$("city").value.trim(), zip:$("zip").value.trim(), date:$("date").value, time:$("time").value,
       name:name, org:$("org").value.trim(), phone:phone, email:email,
       notes:$("notes").value.trim(), website:$("website").value
     };
