@@ -231,7 +231,7 @@ footer a{color:var(--gold-lt);font-weight:700}
           <h3>Boxed Lunch</h3>
           <div class="from-lbl">Starting at</div>
           <div class="cost" style="margin-top:0">$15.00 <small>/ person</small></div>
-          <p>Sandwich or catfish, a side &amp; lemonade.</p>
+          <p>Sandwich or catfish, fries or potato chips &amp; lemonade.</p>
           <ul class="chips"><li>Cheeseburger</li><li>Turkey Burger</li><li>Grilled Chicken Sandwich</li><li>2-Piece Fried Catfish</li></ul>
         </div>
         <div class="card">
@@ -293,7 +293,7 @@ footer a{color:var(--gold-lt);font-weight:700}
           <fieldset id="f-food" hidden>
             <legend>Choose your food</legend>
             <div id="boxed-wrap" hidden>
-              <p class="hint">How many of each? Every boxed lunch comes with a side &amp; lemonade.</p>
+              <p class="hint">How many of each? Every boxed lunch comes with fries or potato chips &amp; lemonade.</p>
               <div id="boxed-list"></div>
               <p class="box-total" id="box-total">0 boxed lunches</p>
             </div>
@@ -385,6 +385,7 @@ footer a{color:var(--gold-lt);font-weight:700}
   var ADDONS = { pie:19.99, lemonade:14.99 };
   var BOXED = ["Cheeseburger","Turkey Burger","Grilled Chicken Sandwich","2-Piece Fried Catfish"];
   var ENTREES = ["Fried Catfish","Fried Chicken","Barbecue Chicken","BBQ Pulled Chicken","Sliced BBQ Beef","BBQ Hot Links","Grilled Chicken Breast","Chicken & Dressing"];
+  var BOXED_SIDES = ["Fries","Potato Chips"];
   var SIDES = ["Greens","Candied Yams","Purple Hull Peas & Okra","Green Beans","Barbecue Beans","Corn on the Cob","Potato Salad","Coleslaw"];
 
   function $(id){ return document.getElementById(id); }
@@ -434,8 +435,8 @@ footer a{color:var(--gold-lt);font-weight:700}
     $("meats-wrap").hidden = p==="boxed";
     $("sides-wrap").hidden = false;
     if (p==="boxed"){
-      limit=2; fillBoxed(); fill("sides-list", SIDES);
-      $("sides-hint").textContent = "Choose 1 or 2 sides for your boxed lunches. If you pick 2, we'll split them evenly.";
+      limit=2; fillBoxed(); fill("sides-list", BOXED_SIDES);
+      $("sides-hint").textContent = "Choose fries, potato chips, or both. If you pick both, we'll split them evenly.";
     }
     if (p==="buffet"){
       limit=2; fill("meats-list", ENTREES); fill("sides-list", SIDES);
@@ -506,7 +507,7 @@ footer a{color:var(--gold-lt);font-weight:700}
     }
     if(p==="buffet" && !(guests>=1)) return fail("Please enter how many people you're feeding.", $("guests"));
     if(p==="buffet" && (nM<1 || nM>2)) return fail("Please choose 1 or 2 entrées.", $("meats-list").querySelector("input"));
-    if(p==="boxed" && (nS<1 || nS>2)) return fail("Please choose 1 or 2 sides for your boxed lunches.", $("sides-list").querySelector("input"));
+    if(p==="boxed" && (nS<1 || nS>2)) return fail("Please choose fries or potato chips for your boxed lunches.", $("sides-list").querySelector("input"));
     if(p!=="boxed" && nS!==2) return fail("Please choose 2 sides.", $("sides-list").querySelector("input"));
     var method=checked("method");
     if(!method) return fail("Please choose delivery or pickup.", form.querySelector('input[name="method"]'));

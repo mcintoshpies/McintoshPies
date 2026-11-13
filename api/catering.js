@@ -20,6 +20,7 @@ const PACKAGES = {
 };
 const BOXED = ["Cheeseburger", "Turkey Burger", "Grilled Chicken Sandwich", "2-Piece Fried Catfish"];
 const ENTREES = ["Fried Catfish", "Fried Chicken", "Barbecue Chicken", "BBQ Pulled Chicken", "Sliced BBQ Beef", "BBQ Hot Links", "Grilled Chicken Breast", "Chicken & Dressing"];
+const BOXED_SIDES = ["Fries", "Potato Chips"];
 const SIDES = ["Greens", "Candied Yams", "Purple Hull Peas & Okra", "Green Beans", "Barbecue Beans", "Corn on the Cob", "Potato Salad", "Coleslaw"];
 const RESTAURANT = "Little Rock · 6223 Colonel Glenn Rd"; // all catering is handled by Little Rock
 const METHODS = {
@@ -86,8 +87,8 @@ module.exports = async (req, res) => {
     boxed = BOXED.map((item) => ({ item, qty: parseInt(q[item], 10) })).filter((x) => x.qty >= 1 && x.qty <= 2000);
     people = boxed.reduce((t, x) => t + x.qty, 0);
     if (!people || people > 2000) return res.status(400).json({ error: "Please enter how many of each boxed lunch you'd like." });
-    sides = [...new Set(pick(b.sides, SIDES))];
-    if (sides.length < 1 || sides.length > 2) return res.status(400).json({ error: "Please choose 1 or 2 sides for your boxed lunches." });
+    sides = [...new Set(pick(b.sides, BOXED_SIDES))];
+    if (sides.length < 1 || sides.length > 2) return res.status(400).json({ error: "Please choose fries or potato chips for your boxed lunches." });
   } else {
     meats = [...new Set(pick(b.meats, ENTREES))];
     sides = [...new Set(pick(b.sides, SIDES))];
