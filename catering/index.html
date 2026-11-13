@@ -1,0 +1,546 @@
+<!doctype html>
+<!-- Say McIntosh catering · mcintoshpies.com/catering -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Catering · Say McIntosh Family Restaurant</title>
+<meta name="description" content="Say McIntosh catering in Little Rock and North Little Rock: boxed lunches and buffets for $19.99 per person, group platters for 25 to 100 people, and Southern dinners by custom quote. Request your catering online.">
+<link rel="icon" href="/img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#d9433b; --red-dark:#b8322b;
+  --gold:#c98f06; --gold-lt:#ffd34d; --cream:#fff4dc;
+  --ink:#1c1714; --char:#221b17;
+  --paper:#ffffff; --bg:#f7f3ee; --line:#e7ded3;
+  --text:#2b2320; --muted:#6a5c53;
+  --display:"Anton", "Impact", "Arial Narrow", "Roboto Condensed", sans-serif-condensed, sans-serif;
+  --sans:"Work Sans", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:1.2rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--gold-lt);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:1.02;letter-spacing:.005em;margin:0;color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+[hidden]{display:none !important}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:12px 28px;border-radius:8px;border:0;cursor:pointer;
+  background:var(--red);color:#fff;font-family:var(--sans);font-weight:800;font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .1s}
+.btn:hover{background:var(--red-dark)}
+.btn:active{transform:translateY(2px)}
+.btn-lg{width:100%;max-width:520px;min-height:72px;font-size:1.3rem}
+
+.notice{background:var(--red);color:#fff;text-align:center;font-weight:800;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:calc(11px + env(safe-area-inset-top,0px)) 16px 11px}
+.notice a{color:var(--gold-lt)}
+
+header{background:var(--paper);box-shadow:0 2px 10px rgba(0,0,0,.06)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.logo img{display:block;height:60px;width:auto;max-width:100%}
+header nav{display:flex;align-items:center;gap:18px}
+header nav .pies-link{font-weight:700;text-decoration:none;color:var(--ink)}
+header nav .pies-link:hover{color:var(--red)}
+header .btn{min-height:50px;padding:10px 20px;font-size:1rem}
+
+/* hero */
+.hero{position:relative;color:#fff;padding:56px 0 60px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(20,15,12,.74),rgba(20,15,12,.86)),url("/img/catering-food.webp") center/cover no-repeat,var(--char)}
+.hero .wrap{position:relative}
+.tag{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:.95rem;letter-spacing:.2em;text-transform:uppercase;padding:10px 18px;transform:rotate(-2deg);margin-bottom:18px}
+.script{font-family:var(--sans);font-style:italic;font-weight:700;color:var(--gold-lt);font-size:1.4rem;margin:0 0 6px}
+.hero h1{color:#fff;font-size:clamp(2.8rem,12vw,6.6rem);max-width:11ch}
+.hero .since{margin:16px 0 0;font-size:1.3rem;color:#f1e9e1;max-width:36ch}
+.badge-logo{display:none}
+@media (min-width:900px){
+  .badge-logo{display:grid;place-items:center;position:absolute;top:0;right:22px;width:220px;height:220px;border-radius:50%;background:#fff;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+  .badge-logo img{width:82%;height:auto}
+}
+.hero-row{display:flex;flex-wrap:wrap;gap:24px;align-items:center;margin-top:30px}
+.price{display:inline-flex;flex-direction:column;align-items:center;gap:6px;background:var(--paper);color:var(--ink);border-radius:14px;padding:18px 30px}
+.price .from{font-weight:800;font-size:.95rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--red);padding:5px 14px;border-radius:4px}
+.price b{font-family:var(--display);font-weight:400;font-size:clamp(3.4rem,11vw,4.8rem);line-height:1;color:var(--red)}
+.price .note{font-weight:700;font-size:1rem}
+.dates{list-style:none;padding:0;margin:0;display:grid;gap:10px;flex:1;min-width:260px}
+.dates li{background:rgba(255,255,255,.1);border-left:6px solid var(--red);border-radius:6px;padding:12px 16px;font-weight:500}
+.dates strong{font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:.95rem;margin-right:6px}
+.hero .btn-lg{margin-top:30px}
+
+section{padding:56px 0}
+.sec-title{font-size:clamp(2.4rem,7vw,3.6rem);text-align:center;margin-bottom:12px}
+.sec-title span{color:var(--red)}
+.sec-sub{text-align:center;color:var(--muted);margin:0 auto 30px;max-width:40ch}
+
+/* package cards */
+.cards{display:grid;gap:22px}
+@media (min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--paper);border-radius:12px;box-shadow:0 8px 24px -12px rgba(0,0,0,.25);padding:26px 22px;border-top:6px solid var(--red);display:flex;flex-direction:column}
+.card.gold{border-top-color:var(--gold)}
+.card.dark{border-top-color:var(--ink)}
+.card h3{font-size:2rem}
+.card .cost{font-family:var(--display);font-size:2.4rem;color:var(--red);line-height:1.1;margin-top:6px}
+.card .cost small{font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--muted)}
+.card p{margin:8px 0 0;color:var(--muted);font-size:1.1rem}
+.card h4{margin:18px 0 8px;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:#8a5e00}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chips li{background:var(--cream);border-radius:999px;padding:6px 14px;font-size:1rem;font-weight:600;color:var(--ink)}
+
+/* platters */
+.platters{margin-top:30px;background:var(--paper);border:3px dashed var(--gold);border-radius:16px;padding:22px;display:grid;gap:16px;align-items:center}
+@media (min-width:760px){.platters{grid-template-columns:180px 1fr}}
+.platters h3{font-size:1.9rem}
+.platters h3 small{display:block;font-family:var(--sans);text-transform:none;font-size:1rem;font-weight:600;color:var(--muted);margin-top:6px;line-height:1.3}
+.tiers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:600px){.tiers{grid-template-columns:repeat(4,1fr)}}
+.tiers div{background:var(--cream);border-radius:12px;padding:12px;text-align:center}
+.tiers b{display:block;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:#8a5e00}
+.tiers span{font-family:var(--display);font-size:2.2rem;color:var(--red)}
+
+/* dinner */
+.dinner{background:var(--paper)}
+.dinner-grid{display:grid;gap:22px}
+@media (min-width:760px){.dinner-grid{grid-template-columns:1fr 1fr}}
+.list-box{background:var(--cream);border-radius:16px;padding:24px 26px}
+.list-box h3{font-size:1.9rem;color:var(--red);margin-bottom:10px}
+.list-box ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+@media (min-width:480px){.list-box ul{grid-template-columns:1fr 1fr}}
+.list-box li{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink)}
+.list-box li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
+.quote-note{text-align:center;margin:24px auto 0;font-weight:600;max-width:46ch}
+.extras{margin-top:26px;background:var(--gold-lt);border-radius:16px;padding:18px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.extras h3{font-size:1.7rem}
+.extras div{display:flex;gap:28px;flex-wrap:wrap}
+.extras p{margin:0;text-align:center;font-weight:700;color:var(--ink);font-size:1rem}
+.extras p b{display:block;font-family:var(--display);font-weight:400;font-size:2rem}
+
+/* request form */
+.request{background:var(--char);color:#fff}
+.request .sec-title{color:#fff}
+.request .sec-sub{color:#d8cfc7}
+.box{max-width:720px;margin:0 auto;background:var(--paper);color:var(--text);border-radius:14px;padding:26px 22px}
+fieldset{border:0;padding:0;margin:26px 0 0;min-width:0}
+fieldset:first-of-type{margin-top:0}
+legend{font-family:var(--display);text-transform:uppercase;font-size:1.5rem;color:var(--ink);margin-bottom:10px}
+.hint{margin:-4px 0 10px;color:var(--muted);font-size:1rem}
+.choices{display:grid;gap:10px}
+@media (min-width:600px){.choices.two{grid-template-columns:1fr 1fr}.choices.four{grid-template-columns:1fr 1fr}}
+.choice{position:relative;display:block;cursor:pointer;border:2px solid var(--line);border-radius:10px;padding:14px 16px;background:#fff}
+.choice input{position:absolute;opacity:0}
+.choice strong{display:block;font-size:1.15rem;color:var(--ink)}
+.choice small{display:block;color:var(--muted);font-size:.95rem;line-height:1.35}
+.choice:has(input:checked){border-color:var(--red);background:#fff4f1;box-shadow:0 0 0 2px var(--red) inset}
+.choice:has(input:focus-visible){outline:4px solid var(--gold-lt);outline-offset:2px}
+.choice.mini{padding:10px 14px}
+.choice.mini strong{font-size:1.05rem}
+.choice.mini:has(input:disabled){opacity:.45;cursor:not-allowed}
+.field{display:block;margin-top:12px}
+.field span{display:block;font-weight:700;margin-bottom:4px}
+.field span i{font-style:normal;font-weight:500;color:var(--muted)}
+.field input,.field textarea{width:100%;min-height:56px;font:inherit;font-size:1.15rem;padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:var(--red);outline:none}
+.row2{display:grid;gap:0 14px}
+@media (min-width:600px){.row2{grid-template-columns:1fr 1fr}}
+.addon{display:flex;align-items:center;justify-content:space-between;gap:12px;border:2px solid var(--line);border-radius:10px;padding:10px 10px 10px 14px;margin-top:10px}
+.addon strong{display:block;color:var(--ink);font-size:1.1rem;line-height:1.25}
+.addon span{color:var(--red);font-weight:700}
+.qty{display:flex;align-items:center;gap:6px}
+.qbtn{width:50px;height:50px;flex:none;border:0;border-radius:8px;background:var(--red);color:#fff;font-size:1.7rem;font-weight:800;line-height:1;cursor:pointer}
+.qbtn:hover{background:var(--red-dark)}
+.qnum{min-width:32px;text-align:center;font-family:var(--display);font-size:1.7rem;color:var(--red)}
+.est{margin-top:24px;background:var(--cream);border-radius:12px;padding:16px 18px}
+.est p{display:flex;justify-content:space-between;gap:12px;margin:2px 0;font-weight:600;color:var(--muted)}
+.est p.total{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:1.7rem;color:var(--ink);margin-top:8px}
+.est p.total span:last-child{color:var(--red)}
+.est small{display:block;margin-top:4px;color:var(--muted);font-size:.95rem}
+.err{color:var(--red-dark);font-weight:700;margin:16px 0 0;min-height:1em}
+form .btn-lg{margin:18px auto 0;display:flex}
+form .btn-lg[disabled]{opacity:.6;cursor:wait}
+.fine{text-align:center;color:var(--muted);font-size:.95rem;margin:10px 0 0}
+.trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.done{text-align:center}
+.done h3{font-size:2.4rem;color:var(--red)}
+.done p{margin:10px auto 0;max-width:40ch}
+.steps{list-style:none;margin:30px auto 0;padding:0;max-width:720px;display:grid;gap:12px;counter-reset:s}
+@media (min-width:700px){.steps{grid-template-columns:repeat(3,1fr)}}
+.steps li{counter-increment:s;background:rgba(255,255,255,.08);border-radius:10px;padding:14px 16px;font-size:1.05rem;color:#f1e9e1}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;margin-right:8px}
+
+footer{background:var(--ink);color:#cfc5bd;text-align:center;padding:30px 22px;font-size:1rem}
+footer p{margin:4px 0}
+footer strong{color:#fff}
+footer a{color:var(--gold-lt);font-weight:700}
+
+@media (max-width:520px){
+  .notice{font-size:.85rem;letter-spacing:.06em}
+  .tag{font-size:.8rem;letter-spacing:.14em;padding:8px 14px}
+  header .btn{padding:10px 14px;font-size:.9rem;letter-spacing:.06em}
+  header nav{gap:12px}
+  .logo img{height:52px}
+}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="notice">Now booking Thanksgiving &amp; holiday catering</div>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="/"><img src="/img/logo.webp" alt="Say McIntosh Family Restaurant, established 1962" width="480" height="220"></a>
+    <nav aria-label="Main">
+      <a class="pies-link" href="/">Pies</a>
+      <a class="btn" href="#request">Book Catering</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap">
+      <div class="badge-logo" aria-hidden="true"><img src="/img/logo.webp" alt=""></div>
+      <span class="tag">Say McIntosh Catering</span>
+      <p class="script">Lunch or dinner, we've got you.</p>
+      <h1 id="h1">Feeding a Group?</h1>
+      <p class="since">Burgers, fried catfish, BBQ, Southern sides and sweet potato pie, made the way we have since 1962. For your family, your office or your church group.</p>
+
+      <div class="hero-row">
+        <div class="price"><span class="from">Lunch from</span><b>$19.99</b><span class="note">per person</span></div>
+        <ul class="dates">
+          <li><strong>Lunch</strong> Boxed lunches &amp; buffets</li>
+          <li><strong>Platters</strong> Feed 25 to 100, from $450</li>
+          <li><strong>Dinner</strong> Southern style, custom quote</li>
+        </ul>
+      </div>
+
+      <a class="btn btn-lg" href="#request">Request Catering ↓</a>
+    </div>
+  </section>
+
+  <section id="lunch" aria-labelledby="lunch-h">
+    <div class="wrap">
+      <h2 class="sec-title" id="lunch-h">Office <span>Lunch</span></h2>
+      <p class="sec-sub">Burgers, fried catfish, BBQ and sweet potato pie for your next meeting.</p>
+      <div class="cards">
+        <div class="card gold">
+          <h3>Boxed Lunch</h3>
+          <div class="cost">$19.99 <small>/ person</small></div>
+          <p>Sandwich or catfish, chips, lemonade &amp; a slice of pie.</p>
+          <h4>Pick from</h4>
+          <ul class="chips"><li>Cheeseburger</li><li>Turkey Burger</li><li>Grilled Chicken Sandwich</li><li>2-Piece Fried Catfish</li></ul>
+        </div>
+        <div class="card">
+          <h3>Buffet</h3>
+          <div class="cost">$19.99 <small>/ person</small></div>
+          <p>1 or 2 meats + 2 sides, bread, lemonade &amp; pie.</p>
+          <h4>Meats</h4>
+          <ul class="chips"><li>Fried Catfish</li><li>BBQ Pulled Chicken</li><li>Sliced BBQ Beef</li><li>BBQ Hot Links</li><li>Grilled Chicken</li></ul>
+          <h4>Sides</h4>
+          <ul class="chips"><li>Coleslaw</li><li>Fried Okra</li><li>Potato Salad</li></ul>
+        </div>
+        <div class="card dark">
+          <h3>Group Platters</h3>
+          <div class="cost">$450 <small>and up</small></div>
+          <p>Serves 25 to 100. Two meats, two sides &amp; pie.</p>
+          <h4>Meats &amp; sides</h4>
+          <p style="margin-top:0">Same choices as the buffet.</p>
+        </div>
+      </div>
+
+      <div class="platters" aria-label="Group platter prices">
+        <h3>Group Platters<small>Two meats, two sides &amp; pie</small></h3>
+        <div class="tiers">
+          <div><b>Feeds 25</b><span>$450</span></div>
+          <div><b>Feeds 50</b><span>$875</span></div>
+          <div><b>Feeds 75</b><span>$1,300</span></div>
+          <div><b>Feeds 100</b><span>$1,700</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dinner" id="dinner" aria-labelledby="dinner-h">
+    <div class="wrap">
+      <h2 class="sec-title" id="dinner-h">Hosting a <span>Crowd?</span></h2>
+      <p class="sec-sub">Dinner, Southern style. Fried chicken, catfish, candied yams and greens.</p>
+      <div class="dinner-grid">
+        <div class="list-box">
+          <h3>Pick your entrées</h3>
+          <ul><li>Fried Catfish</li><li>Fried Chicken</li><li>Barbecue Chicken</li><li>BBQ Pulled Chicken</li><li>Sliced BBQ Beef</li><li>BBQ Hot Links</li><li>Grilled Chicken Breast</li><li>Chicken &amp; Dressing</li></ul>
+        </div>
+        <div class="list-box">
+          <h3>Pick your sides</h3>
+          <ul><li>Greens</li><li>Candied Yams</li><li>Purple Hull Peas &amp; Okra</li><li>Green Beans</li><li>Barbecue Beans</li><li>Corn on the Cob</li><li>Potato Salad</li><li>Coleslaw</li></ul>
+        </div>
+      </div>
+      <p class="quote-note">Dinner is priced by custom quote. Send us your request below and we'll reach out with your quote.</p>
+      <div class="extras">
+        <h3>Don't forget dessert!</h3>
+        <div>
+          <p><b>$19.99</b>Whole Sweet Potato Pie</p>
+          <p><b>$14.99</b>Gallon of Lemonade</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="request" id="request" aria-labelledby="req-h">
+    <div class="wrap">
+      <h2 class="sec-title" id="req-h">Request Catering</h2>
+      <p class="sec-sub">Tell us about your event. Nothing is charged now.</p>
+
+      <div class="box">
+        <form id="cat-form" novalidate>
+          <fieldset>
+            <legend>What would you like?</legend>
+            <div class="choices four">
+              <label class="choice"><input type="radio" name="package" value="boxed"><strong>Boxed Lunch</strong><small>$19.99 per person</small></label>
+              <label class="choice"><input type="radio" name="package" value="buffet"><strong>Lunch Buffet</strong><small>$19.99 per person</small></label>
+              <label class="choice"><input type="radio" name="package" value="platter"><strong>Group Platter</strong><small>Feeds 25–100, from $450</small></label>
+              <label class="choice"><input type="radio" name="package" value="dinner"><strong>Dinner</strong><small>Custom quote</small></label>
+            </div>
+          </fieldset>
+
+          <fieldset id="f-size" hidden>
+            <legend>How many people?</legend>
+            <div id="guests-wrap"><label class="field"><span>Number of people</span><input id="guests" type="number" inputmode="numeric" min="1" max="2000"></label></div>
+            <div id="platter-wrap" class="choices four" hidden>
+              <label class="choice"><input type="radio" name="platter" value="25"><strong>Feeds 25</strong><small>$450</small></label>
+              <label class="choice"><input type="radio" name="platter" value="50"><strong>Feeds 50</strong><small>$875</small></label>
+              <label class="choice"><input type="radio" name="platter" value="75"><strong>Feeds 75</strong><small>$1,300</small></label>
+              <label class="choice"><input type="radio" name="platter" value="100"><strong>Feeds 100</strong><small>$1,700</small></label>
+            </div>
+          </fieldset>
+
+          <fieldset id="f-food" hidden>
+            <legend>Choose your food</legend>
+            <div id="boxed-wrap" hidden>
+              <p class="hint">Pick everything your group wants. Put how many of each in the notes below.</p>
+              <div class="choices two" id="boxed-list"></div>
+            </div>
+            <div id="meats-wrap" hidden>
+              <p class="hint" id="meats-hint"></p>
+              <div class="choices two" id="meats-list"></div>
+            </div>
+            <div id="sides-wrap" hidden>
+              <p class="hint" id="sides-hint" style="margin-top:16px"></p>
+              <div class="choices two" id="sides-list"></div>
+            </div>
+          </fieldset>
+
+          <fieldset id="f-extras" hidden>
+            <legend>Add dessert &amp; drinks</legend>
+            <div class="addon" data-addon="pie"><div><strong>Whole Sweet Potato Pie</strong><span>$19.99</span></div>
+              <div class="qty"><button type="button" class="qbtn js-minus" aria-label="Remove one sweet potato pie">−</button><span class="qnum" aria-live="polite">0</span><button type="button" class="qbtn js-plus" aria-label="Add one sweet potato pie">+</button></div></div>
+            <div class="addon" data-addon="lemonade"><div><strong>Gallon of Lemonade</strong><span>$14.99</span></div>
+              <div class="qty"><button type="button" class="qbtn js-minus" aria-label="Remove one gallon of lemonade">−</button><span class="qnum" aria-live="polite">0</span><button type="button" class="qbtn js-plus" aria-label="Add one gallon of lemonade">+</button></div></div>
+          </fieldset>
+
+          <fieldset>
+            <legend id="l-event">Your event</legend>
+            <div class="choices four">
+              <label class="choice mini"><input type="radio" name="event" value="family"><strong>Family gathering</strong></label>
+              <label class="choice mini"><input type="radio" name="event" value="office"><strong>Office / work</strong></label>
+              <label class="choice mini"><input type="radio" name="event" value="church"><strong>Church group</strong></label>
+              <label class="choice mini"><input type="radio" name="event" value="other"><strong>Something else</strong></label>
+            </div>
+            <div class="row2">
+              <label class="field"><span>Date</span><input id="date" type="date"></label>
+              <label class="field"><span>Time</span><input id="time" type="time" step="900"></label>
+            </div>
+            <p class="hint" style="margin-top:16px">Which restaurant should handle your order?</p>
+            <div class="choices two">
+              <label class="choice"><input type="radio" name="location" value="lr"><strong>Little Rock</strong><small>6223 Colonel Glenn Rd</small></label>
+              <label class="choice"><input type="radio" name="location" value="nlr"><strong>North Little Rock</strong><small>4604 E Broadway St</small></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend id="l-you">Your information</legend>
+            <div class="row2">
+              <label class="field"><span>Name</span><input id="name" autocomplete="name" maxlength="80"></label>
+              <label class="field"><span>Church, company or group <i>(optional)</i></span><input id="org" autocomplete="organization" maxlength="120"></label>
+              <label class="field"><span>Phone number</span><input id="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20"></label>
+              <label class="field"><span>Email</span><input id="email" type="email" autocomplete="email" maxlength="120"></label>
+            </div>
+            <label class="field"><span>Anything else we should know? <i>(optional)</i></span><textarea id="notes" maxlength="1500" placeholder="How many of each boxed lunch, event address, allergies, setup needs…"></textarea></label>
+            <label class="trap" aria-hidden="true">Leave this empty<input id="website" tabindex="-1" autocomplete="off"></label>
+          </fieldset>
+
+          <div class="est" id="est" hidden>
+            <p><span id="est-label">Estimate</span><span id="est-food"></span></p>
+            <p id="est-add-row" hidden><span>Add-ons</span><span id="est-add"></span></p>
+            <p class="total"><span>Estimated total</span><span id="est-total"></span></p>
+            <small id="est-note">Plus sales tax. We'll confirm your final price.</small>
+          </div>
+
+          <p id="err" class="err" role="alert"></p>
+          <button type="submit" class="btn btn-lg" id="send">Send My Catering Request</button>
+          <p class="fine">Nothing is charged now. Once we confirm your order, we'll send you a secure Square payment link.</p>
+        </form>
+
+        <div class="done" id="done" hidden tabindex="-1">
+          <h3>Thank you!</h3>
+          <p>We got your catering request. We'll reach out soon to confirm the details and send a secure Square payment link.</p>
+          <p>Questions? Email <a href="mailto:catering@mcintoshpies.com">catering@mcintoshpies.com</a></p>
+        </div>
+      </div>
+
+      <ol class="steps" aria-label="How it works">
+        <li>Send your request with the form above.</li>
+        <li>We call or email to confirm your order.</li>
+        <li>Pay with the secure Square link we send you.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p><strong>Say McIntosh Family Restaurant</strong> · Since 1962</p>
+  <p>Open Monday to Saturday, 11am to 8pm · Closed Sunday</p>
+  <p>Catering questions? <a href="mailto:catering@mcintoshpies.com">catering@mcintoshpies.com</a></p>
+  <p><a href="/">Order Thanksgiving pies</a></p>
+</footer>
+
+<script>
+(function(){
+  /* ===== MENU SHOWN ON THE FORM (the email estimate uses the prices in api/catering.js) ===== */
+  var PER_PERSON = 19.99;
+  var PLATTERS = { 25:450, 50:875, 75:1300, 100:1700 };
+  var ADDONS = { pie:19.99, lemonade:14.99 };
+  var BOXED = ["Cheeseburger","Turkey Burger","Grilled Chicken Sandwich","2-Piece Fried Catfish"];
+  var LUNCH_MEATS = ["Fried Catfish","BBQ Pulled Chicken","Sliced BBQ Beef","BBQ Hot Links","Grilled Chicken"];
+  var LUNCH_SIDES = ["Coleslaw","Fried Okra","Potato Salad"];
+  var DINNER_MEATS = ["Fried Catfish","Fried Chicken","Barbecue Chicken","BBQ Pulled Chicken","Sliced BBQ Beef","BBQ Hot Links","Grilled Chicken Breast","Chicken & Dressing"];
+  var DINNER_SIDES = ["Greens","Candied Yams","Purple Hull Peas & Okra","Green Beans","Barbecue Beans","Corn on the Cob","Potato Salad","Coleslaw"];
+
+  function $(id){ return document.getElementById(id); }
+  function money(n){ return "$" + n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  var form = $("cat-form"), addons = { pie:0, lemonade:0 }, limit = 0;
+  function checked(name){ var r=form.querySelector('input[name="'+name+'"]:checked'); return r ? r.value : ""; }
+  function ticks(listId){ return [].map.call($(listId).querySelectorAll("input:checked"), function(i){ return i.value; }); }
+
+  function fill(listId, items){
+    var box=$(listId); box.innerHTML="";
+    items.forEach(function(t){
+      var l=document.createElement("label"); l.className="choice mini";
+      var i=document.createElement("input"); i.type="checkbox"; i.value=t;
+      var s=document.createElement("strong"); s.textContent=t;
+      l.appendChild(i); l.appendChild(s); box.appendChild(l);
+    });
+  }
+  // buffet and platters: up to 2 meats and 2 sides
+  function capChecks(listId, max){
+    var boxes=$(listId).querySelectorAll("input"), n=0;
+    boxes.forEach(function(b){ if(b.checked) n++; });
+    boxes.forEach(function(b){ b.disabled = !!max && !b.checked && n>=max; });
+  }
+
+  var current="";
+  function setPackage(p){
+    if (p===current) return; current=p;
+    ["f-size","f-food","f-extras"].forEach(function(id){ $(id).hidden=false; });
+    $("guests-wrap").hidden = p==="platter";
+    $("platter-wrap").hidden = p!=="platter";
+    $("boxed-wrap").hidden = p!=="boxed";
+    $("meats-wrap").hidden = p==="boxed";
+    $("sides-wrap").hidden = p==="boxed";
+    if (p==="boxed") fill("boxed-list", BOXED);
+    if (p==="buffet" || p==="platter"){
+      limit=2; fill("meats-list", LUNCH_MEATS); fill("sides-list", LUNCH_SIDES);
+      $("meats-hint").textContent = p==="buffet" ? "Choose 1 or 2 meats." : "Choose 2 meats.";
+      $("sides-hint").textContent = "Choose 2 sides.";
+    }
+    if (p==="dinner"){
+      limit=0; fill("meats-list", DINNER_MEATS); fill("sides-list", DINNER_SIDES);
+      $("meats-hint").textContent = "Choose your entrées.";
+      $("sides-hint").textContent = "Choose your sides.";
+    }
+    render();
+  }
+
+  function render(){
+    var p=checked("package");
+    if (!p){ $("est").hidden=true; return; }
+    capChecks("meats-list", limit); capChecks("sides-list", limit);
+    var food=null, label="Food";
+    if (p==="boxed" || p==="buffet"){
+      var g=parseInt($("guests").value,10)||0;
+      food = g*PER_PERSON; label = g + (g===1?" person":" people") + " × " + money(PER_PERSON);
+    } else if (p==="platter"){
+      var s=checked("platter"); food = s ? PLATTERS[s] : 0; label = s ? "Platter, feeds "+s : "Platter";
+    } else { label="Dinner"; }
+    var add=addons.pie*ADDONS.pie + addons.lemonade*ADDONS.lemonade;
+    $("est").hidden=false;
+    $("est-label").textContent=label;
+    $("est-food").textContent = food===null ? "Custom quote" : money(food);
+    $("est-add-row").hidden = !add;
+    $("est-add").textContent = money(add);
+    $("est-total").textContent = food===null ? "Quote" : money(food+add);
+    $("est-note").textContent = food===null ? "We'll send you a custom quote for dinner." : "Plus sales tax. We'll confirm your final price.";
+  }
+
+  document.querySelectorAll(".addon").forEach(function(row){
+    var k=row.getAttribute("data-addon"), num=row.querySelector(".qnum");
+    row.querySelector(".js-plus").addEventListener("click",function(){ addons[k]=Math.min(200,addons[k]+1); num.textContent=addons[k]; render(); });
+    row.querySelector(".js-minus").addEventListener("click",function(){ addons[k]=Math.max(0,addons[k]-1); num.textContent=addons[k]; render(); });
+  });
+  form.addEventListener("change",function(e){
+    $("err").textContent="";
+    if (e.target.name==="package") setPackage(e.target.value);
+    render();
+  });
+  $("guests").addEventListener("input",render);
+
+  // earliest date: today (Central time)
+  try{
+    $("date").min = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+  }catch(e){}
+
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var err=$("err"); err.textContent="";
+    var p=checked("package");
+    function fail(msg, el){ err.textContent=msg; if(el) el.focus(); }
+    if(!p) return fail("Please choose what you'd like to order.");
+    var guests=parseInt($("guests").value,10);
+    if(p==="platter" && !checked("platter")) return fail("Please choose a platter size.");
+    if(p!=="platter" && !(guests>=1)) return fail("Please enter how many people you're feeding.", $("guests"));
+    if(!$("date").value) return fail("Please choose a date for your event.", $("date"));
+    if(!$("time").value) return fail("Please choose a time.", $("time"));
+    if(!checked("location")) return fail("Please choose which restaurant you'll order from.");
+    var name=$("name").value.trim(), phone=$("phone").value.trim(), email=$("email").value.trim();
+    if(!name) return fail("Please enter your name.", $("name"));
+    if(phone.replace(/\D/g,"").length<10) return fail("Please enter a 10-digit phone number.", $("phone"));
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Please enter a valid email address.", $("email"));
+
+    var body={
+      package:p, guests:guests, platter:checked("platter"),
+      boxed: p==="boxed" ? ticks("boxed-list") : [],
+      meats: p!=="boxed" ? ticks("meats-list") : [],
+      sides: p!=="boxed" ? ticks("sides-list") : [],
+      addons:addons, event:checked("event"), date:$("date").value, time:$("time").value,
+      location:checked("location"), name:name, org:$("org").value.trim(), phone:phone, email:email,
+      notes:$("notes").value.trim(), website:$("website").value
+    };
+    var btn=$("send"); btn.disabled=true; btn.textContent="Sending…";
+    fetch("/api/catering",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
+      .then(function(r){ return r.json().catch(function(){return {};}).then(function(d){ return {ok:r.ok,d:d}; }); })
+      .then(function(res){
+        if(!res.ok || !res.d.ok) throw new Error(res.d.error || "We couldn't send your request. Please try again.");
+        form.hidden=true; $("done").hidden=false; $("done").focus();
+        $("request").scrollIntoView({behavior:"smooth",block:"start"});
+      })
+      .catch(function(x){
+        err.textContent=(x && x.message && x.message!=="Failed to fetch") ? x.message : "We couldn't send your request. Please try again, or email catering@mcintoshpies.com.";
+        btn.disabled=false; btn.textContent="Send My Catering Request";
+      });
+  });
+})();
+</script>
+</body>
+</html>
