@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Catering · Say McIntosh Family Restaurant</title>
-<meta name="description" content="Say McIntosh catering in Little Rock and North Little Rock: boxed lunches and buffets for $19.99 per person, group platters for 25 to 100 people, and Southern dinners by custom quote. Request your catering online.">
+<meta name="description" content="Say McIntosh catering in Little Rock: boxed lunches and buffets for $19.99 per person, group platters for 25 to 100 people, and Southern dinners by custom quote. Request your catering online.">
 <link rel="icon" href="/img/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -352,11 +352,6 @@ footer a{color:var(--gold-lt);font-weight:700}
               <label class="field"><span>Date</span><input id="date" type="date"></label>
               <label class="field"><span>Time</span><input id="time" type="time" step="900"></label>
             </div>
-            <p class="hint" style="margin-top:16px">Which restaurant should handle your order?</p>
-            <div class="choices two">
-              <label class="choice"><input type="radio" name="location" value="lr"><strong>Little Rock</strong><small>6223 Colonel Glenn Rd</small></label>
-              <label class="choice"><input type="radio" name="location" value="nlr"><strong>North Little Rock</strong><small>4604 E Broadway St</small></label>
-            </div>
           </fieldset>
 
           <fieldset>
@@ -512,7 +507,6 @@ footer a{color:var(--gold-lt);font-weight:700}
     if(p!=="platter" && !(guests>=1)) return fail("Please enter how many people you're feeding.", $("guests"));
     if(!$("date").value) return fail("Please choose a date for your event.", $("date"));
     if(!$("time").value) return fail("Please choose a time.", $("time"));
-    if(!checked("location")) return fail("Please choose which restaurant you'll order from.");
     var name=$("name").value.trim(), phone=$("phone").value.trim(), email=$("email").value.trim();
     if(!name) return fail("Please enter your name.", $("name"));
     if(phone.replace(/\D/g,"").length<10) return fail("Please enter a 10-digit phone number.", $("phone"));
@@ -524,7 +518,7 @@ footer a{color:var(--gold-lt);font-weight:700}
       meats: p!=="boxed" ? ticks("meats-list") : [],
       sides: p!=="boxed" ? ticks("sides-list") : [],
       addons:addons, event:checked("event"), date:$("date").value, time:$("time").value,
-      location:checked("location"), name:name, org:$("org").value.trim(), phone:phone, email:email,
+      name:name, org:$("org").value.trim(), phone:phone, email:email,
       notes:$("notes").value.trim(), website:$("website").value
     };
     var btn=$("send"); btn.disabled=true; btn.textContent="Sending…";

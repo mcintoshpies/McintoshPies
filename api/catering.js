@@ -26,7 +26,7 @@ const LUNCH_MEATS = ["Fried Catfish", "BBQ Pulled Chicken", "Sliced BBQ Beef", "
 const LUNCH_SIDES = ["Coleslaw", "Fried Okra", "Potato Salad"];
 const DINNER_MEATS = ["Fried Catfish", "Fried Chicken", "Barbecue Chicken", "BBQ Pulled Chicken", "Sliced BBQ Beef", "BBQ Hot Links", "Grilled Chicken Breast", "Chicken & Dressing"];
 const DINNER_SIDES = ["Greens", "Candied Yams", "Purple Hull Peas & Okra", "Green Beans", "Barbecue Beans", "Corn on the Cob", "Potato Salad", "Coleslaw"];
-const LOCATIONS = { lr: "Little Rock · 6223 Colonel Glenn Rd", nlr: "North Little Rock · 4604 E Broadway St" };
+const RESTAURANT = "Little Rock · 6223 Colonel Glenn Rd"; // all catering is handled by Little Rock
 const EVENTS = { family: "Family gathering", office: "Office / work", church: "Church group", other: "Other event" };
 
 const clean = (v, max) => String(v == null ? "" : v).replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, max);
@@ -64,7 +64,6 @@ module.exports = async (req, res) => {
   const date = clean(b.date, 10);
   const time = clean(b.time, 5);
   const notes = clean(b.notes, 1500);
-  const loc = LOCATIONS[b.location] ? b.location : "";
   const event = EVENTS[b.event] ? b.event : "";
   const guests = parseInt(b.guests, 10);
   const platter = PLATTERS[b.platter] ? Number(b.platter) : 0;
@@ -74,7 +73,6 @@ module.exports = async (req, res) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: "Please enter a valid email address." });
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < todayChicago()) return res.status(400).json({ error: "Please choose a date for your event." });
   if (!/^\d{2}:\d{2}$/.test(time)) return res.status(400).json({ error: "Please choose a time." });
-  if (!loc) return res.status(400).json({ error: "Please choose which restaurant you'll order from." });
   if (pkg === "platter" && !platter) return res.status(400).json({ error: "Please choose a platter size." });
   if (pkg !== "platter" && !(guests >= 1 && guests <= 2000)) return res.status(400).json({ error: "Please enter how many people you're feeding." });
 
@@ -108,7 +106,7 @@ module.exports = async (req, res) => {
     ["Email", email],
     ["Event", event ? EVENTS[event] : "—"],
     ["Date & time", `${when} at ${clock}`],
-    ["Restaurant", LOCATIONS[loc]],
+    ["Restaurant", RESTAURANT],
     ["Package", PACKAGES[pkg]],
     pkg === "platter" ? ["Platter size", `Feeds ${platter} (${money(PLATTERS[platter])})`] : ["Number of people", String(guests)],
   ];
