@@ -79,6 +79,8 @@ module.exports = async (req, res) => {
     boxed = BOXED.map((item) => ({ item, qty: parseInt(q[item], 10) })).filter((x) => x.qty >= 1 && x.qty <= 2000);
     people = boxed.reduce((t, x) => t + x.qty, 0);
     if (!people || people > 2000) return res.status(400).json({ error: "Please enter how many of each boxed lunch you'd like." });
+    sides = [...new Set(pick(b.sides, SIDES))];
+    if (sides.length < 1 || sides.length > 2) return res.status(400).json({ error: "Please choose 1 or 2 sides for your boxed lunches." });
   } else {
     meats = [...new Set(pick(b.meats, ENTREES))];
     sides = [...new Set(pick(b.sides, SIDES))];
@@ -115,6 +117,7 @@ module.exports = async (req, res) => {
     pkg === "platter" ? ["Platter size", `Feeds ${platter} (${money(PLATTERS[platter])})`] : ["Number of people", String(people)],
   ];
   if (pkg === "boxed") rows.push(["Boxed lunches", boxed.map((x) => `${x.qty} × ${x.item}`).join(", ")]);
+  if (pkg === "boxed") rows.push(["Boxed lunch side" + (sides.length > 1 ? "s (split evenly)" : ""), sides.join(", ")]);
   if (pkg !== "boxed") rows.push(["Entrées", meats.join(", ")]);
   if (pkg !== "boxed") rows.push(["Sides", sides.join(", ")]);
   rows.push(["Add-ons", addons.map((a) => `${a.qty} × ${a.name} (${money(a.qty * a.cents)})`).join(", ") || "None"]);

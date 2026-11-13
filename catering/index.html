@@ -234,7 +234,7 @@ footer a{color:var(--gold-lt);font-weight:700}
           <h3>Boxed Lunch</h3>
           <div class="from-lbl">Starting at</div>
           <div class="cost" style="margin-top:0">$15.00 <small>/ person</small></div>
-          <p>Sandwich or catfish, chips, lemonade &amp; a slice of pie.</p>
+          <p>Sandwich or catfish, a side &amp; lemonade.</p>
           <ul class="chips"><li>Cheeseburger</li><li>Turkey Burger</li><li>Grilled Chicken Sandwich</li><li>2-Piece Fried Catfish</li></ul>
         </div>
         <div class="card">
@@ -304,7 +304,7 @@ footer a{color:var(--gold-lt);font-weight:700}
           <fieldset id="f-food" hidden>
             <legend>Choose your food</legend>
             <div id="boxed-wrap" hidden>
-              <p class="hint">How many of each? Every boxed lunch comes with chips, lemonade &amp; a slice of pie.</p>
+              <p class="hint">How many of each? Every boxed lunch comes with a side &amp; lemonade.</p>
               <div id="boxed-list"></div>
               <p class="box-total" id="box-total">0 boxed lunches</p>
             </div>
@@ -439,8 +439,11 @@ footer a{color:var(--gold-lt);font-weight:700}
     $("platter-wrap").hidden = p!=="platter";
     $("boxed-wrap").hidden = p!=="boxed";
     $("meats-wrap").hidden = p==="boxed";
-    $("sides-wrap").hidden = p==="boxed";
-    if (p==="boxed") fillBoxed();
+    $("sides-wrap").hidden = false;
+    if (p==="boxed"){
+      limit=2; fillBoxed(); fill("sides-list", SIDES);
+      $("sides-hint").textContent = "Choose 1 or 2 sides for your boxed lunches. If you pick 2, we'll split them evenly.";
+    }
     if (p==="buffet" || p==="platter"){
       limit=2; fill("meats-list", ENTREES); fill("sides-list", SIDES);
       $("meats-hint").textContent = p==="buffet" ? "Choose 1 or 2 entrées." : "Choose 2 entrées.";
@@ -507,6 +510,7 @@ footer a{color:var(--gold-lt);font-weight:700}
     if(p==="buffet" && !(guests>=1)) return fail("Please enter how many people you're feeding.", $("guests"));
     if(p==="buffet" && (nM<1 || nM>2)) return fail("Please choose 1 or 2 entrées.", $("meats-list").querySelector("input"));
     if(p==="platter" && nM!==2) return fail("Please choose 2 entrées.", $("meats-list").querySelector("input"));
+    if(p==="boxed" && (nS<1 || nS>2)) return fail("Please choose 1 or 2 sides for your boxed lunches.", $("sides-list").querySelector("input"));
     if(p!=="boxed" && nS!==2) return fail("Please choose 2 sides.", $("sides-list").querySelector("input"));
     if(!checked("event")) return fail("Please tell us what kind of event it is.", form.querySelector('input[name="event"]'));
     if(!$("date").value) return fail("Please choose a date for your event.", $("date"));
@@ -520,7 +524,7 @@ footer a{color:var(--gold-lt);font-weight:700}
       package:p, guests:guests, platter:checked("platter"),
       boxedQty: p==="boxed" ? bq.items : {},
       meats: p!=="boxed" ? ticks("meats-list") : [],
-      sides: p!=="boxed" ? ticks("sides-list") : [],
+      sides: ticks("sides-list"),
       addons:addons, event:checked("event"), date:$("date").value, time:$("time").value,
       name:name, org:$("org").value.trim(), phone:phone, email:email,
       notes:$("notes").value.trim(), website:$("website").value
