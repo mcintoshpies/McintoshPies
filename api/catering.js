@@ -25,7 +25,7 @@ const SIDES = ["Greens", "Candied Yams", "Purple Hull Peas & Okra", "Green Beans
 const RESTAURANT = "Little Rock · 6223 Colonel Glenn Rd"; // all catering is handled by Little Rock
 const METHODS = {
   delivery: "Delivery within 15 miles (included)",
-  far:      "Delivery more than 15 miles (additional fee, needs a quote)",
+  far:      "Delivery more than 15 miles ($20 minimum fee, final fee depends on distance)",
   pickup:   "Pickup at Little Rock (6223 Colonel Glenn Rd)",
 };
 
@@ -105,7 +105,8 @@ module.exports = async (req, res) => {
 
   // Estimate before tax (boxed lunch uses the $15 starting price)
   const addonCents = addons.reduce((t, a) => t + a.qty * a.cents, 0);
-  const est = people * PER_PERSON[pkg] + addonCents;
+  const DELIVERY_MIN = 2000; // cents: minimum fee for delivery beyond 15 miles
+  const est = people * PER_PERSON[pkg] + addonCents + (method === "far" ? DELIVERY_MIN : 0);
 
   const when = new Date(date + "T12:00:00Z").toLocaleDateString("en-US", { timeZone: "UTC", weekday: "long", month: "long", day: "numeric", year: "numeric" });
   const [hh, mm] = time.split(":").map(Number);
@@ -128,11 +129,11 @@ module.exports = async (req, res) => {
   if (pkg !== "boxed") rows.push(["Entrées", meats.join(", ")]);
   if (pkg !== "boxed") rows.push(["Sides", sides.join(", ")]);
   rows.push(["Add-ons", addons.map((a) => `${a.qty} × ${a.name} (${money(a.qty * a.cents)})`).join(", ") || "None"]);
-  rows.push(["Estimate (before tax)", "From " + money(est) + (method === "far" ? " + delivery fee (not quoted yet)" : "")]);
+  rows.push(["Estimate (before tax)", "From " + money(est) + (method === "far" ? " (includes $20 minimum delivery fee)" : "")]);
   rows.push(["Notes", notes || "—"]);
 
   const subject = `Catering request: ${name}${org ? " (" + org + ")" : ""} · ${PACKAGES[pkg].split(" (")[0]} · ${when}`.slice(0, 200);
-  const nextStep = (method === "far" ? "This delivery is more than 15 miles: check the distance and quote the delivery fee. " : "") + "Next step: confirm with the customer, then send a Square payment link or invoice (Square Dashboard → Payment links or Invoices). Reply to this email to reach the customer.";
+  const nextStep = (method === "far" ? "This delivery is more than 15 miles: check the distance and set the final delivery fee ($20 minimum) on the invoice. " : "") + "Next step: confirm with the customer, then send a Square payment link or invoice (Square Dashboard → Payment links or Invoices). Reply to this email to reach the customer.";
   const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n") + "\n\n" + nextStep;
   const html =
     `<div style="font-family:Arial,sans-serif;font-size:15px;color:#1c1714">` +

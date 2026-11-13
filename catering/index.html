@@ -319,7 +319,7 @@ footer a{color:var(--gold-lt);font-weight:700}
             <legend>Delivery or pickup</legend>
             <div class="choices">
               <label class="choice"><input type="radio" name="method" value="delivery"><strong>Delivery, within 15 miles</strong><small>Included, no extra charge</small></label>
-              <label class="choice"><input type="radio" name="method" value="far"><strong>Delivery, more than 15 miles</strong><small>Additional fee. We'll confirm the fee with you before you pay.</small></label>
+              <label class="choice"><input type="radio" name="method" value="far"><strong>Delivery, more than 15 miles</strong><small>Delivery fee starts at $20, based on distance</small></label>
               <label class="choice"><input type="radio" name="method" value="pickup"><strong>Pickup in Little Rock</strong><small>6223 Colonel Glenn Rd</small></label>
             </div>
             <div id="addr-wrap" hidden>
@@ -351,6 +351,7 @@ footer a{color:var(--gold-lt);font-weight:700}
           <div class="est" id="est" hidden>
             <p><span id="est-label">Estimate</span><span id="est-food"></span></p>
             <p id="est-add-row" hidden><span>Add-ons</span><span id="est-add"></span></p>
+            <p id="est-del-row" hidden><span>Delivery fee (minimum)</span><span>$20.00</span></p>
             <p class="total"><span>Estimated total</span><span id="est-total"></span></p>
             <small id="est-note">Plus sales tax. We'll confirm your final price.</small>
           </div>
@@ -382,6 +383,7 @@ footer a{color:var(--gold-lt);font-weight:700}
 (function(){
   /* ===== MENU SHOWN ON THE FORM (the email estimate uses the prices in api/catering.js) ===== */
   var PER_PERSON = { boxed:15.00, buffet:19.99 };
+  var DELIVERY_MIN = 20;   // minimum fee for delivery beyond 15 miles
   var ADDONS = { pie:19.99, lemonade:14.99 };
   var BOXED = ["Cheeseburger","Turkey Burger","Grilled Chicken Sandwich","2-Piece Fried Catfish"];
   var ENTREES = ["Fried Catfish","Fried Chicken","Barbecue Chicken","BBQ Pulled Chicken","Sliced BBQ Beef","BBQ Hot Links","Grilled Chicken Breast","Chicken & Dressing"];
@@ -465,9 +467,10 @@ footer a{color:var(--gold-lt);font-weight:700}
     $("est-food").textContent = money(food);
     $("est-add-row").hidden = !add;
     $("est-add").textContent = money(add);
-    $("est-total").textContent = "From " + money(food+add);
-    var far = checked("method")==="far";
-    $("est-note").textContent = (p==="boxed" ? "Boxed lunch prices start at $15.00 and depend on your picks. " : "Buffet prices start at $19.99 and depend on your picks. ") + "Plus sales tax" + (far ? " and a delivery fee" : "") + ". We'll confirm your final price.";
+    var far = checked("method")==="far", del = far ? DELIVERY_MIN : 0;
+    $("est-del-row").hidden = !far;
+    $("est-total").textContent = "From " + money(food+add+del);
+    $("est-note").textContent = (p==="boxed" ? "Boxed lunch prices start at $15.00. " : "Buffet prices start at $19.99. ") + (far ? "Delivery fee varies by distance ($20 minimum). " : "") + "Plus sales tax. Your final total will be on your invoice.";
   }
 
   document.querySelectorAll(".addon").forEach(function(row){
