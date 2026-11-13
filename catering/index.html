@@ -386,7 +386,7 @@ footer a{color:var(--gold-lt);font-weight:700}
         <div class="done" id="done" hidden tabindex="-1">
           <h3>Thank you!</h3>
           <p>We got your catering request. We'll reach out soon to confirm the details and send a secure Square payment link.</p>
-          <p>Questions? Email <a href="mailto:catering@mcintoshpies.com">catering@mcintoshpies.com</a></p>
+          <p>Questions? Email <a href="mailto:pies@mcintoshpies.com">pies@mcintoshpies.com</a></p>
         </div>
       </div>
 
@@ -402,7 +402,7 @@ footer a{color:var(--gold-lt);font-weight:700}
 <footer>
   <p><strong>Say McIntosh Family Restaurant</strong> · Since 1962</p>
   <p>Open Monday to Saturday, 11am to 8pm · Closed Sunday</p>
-  <p>Catering questions? <a href="mailto:catering@mcintoshpies.com">catering@mcintoshpies.com</a></p>
+  <p>Catering questions? <a href="mailto:pies@mcintoshpies.com">pies@mcintoshpies.com</a></p>
   <p><a href="/">Order Thanksgiving pies</a></p>
 </footer>
 
@@ -536,7 +536,7 @@ footer a{color:var(--gold-lt);font-weight:700}
         $("request").scrollIntoView({behavior:"smooth",block:"start"});
       })
       .catch(function(x){
-        err.textContent=(x && x.message && x.message!=="Failed to fetch") ? x.message : "We couldn't send your request. Please try again, or email catering@mcintoshpies.com.";
+        err.textContent=(x && x.message && x.message!=="Failed to fetch") ? x.message : "We couldn't send your request. Please try again, or email pies@mcintoshpies.com.";
         btn.disabled=false; btn.textContent="Send My Catering Request";
       });
   });

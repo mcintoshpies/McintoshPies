@@ -4,7 +4,7 @@
 // Needs these Environment Variables in Vercel (Settings → Environment Variables):
 //   RESEND_API_KEY   API key from resend.com (keep secret)
 //   CATERING_TO      where requests go (default: pies@mcintoshpies.com)
-//   CATERING_FROM    the "from" address, e.g. "Say McIntosh Catering <catering@mcintoshpies.com>"
+//   CATERING_FROM    the "from" address, e.g. "Say McIntosh Catering <pies@mcintoshpies.com>"
 //                    (the domain must be verified in Resend; until then the default below only
 //                    delivers to the email address you signed up to Resend with)
 
@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
   }
   const env = process.env;
   if (!env.RESEND_API_KEY) {
-    return res.status(500).json({ error: "Online catering requests aren't set up yet. Please email catering@mcintoshpies.com." });
+    return res.status(500).json({ error: "Online catering requests aren't set up yet. Please email pies@mcintoshpies.com." });
   }
 
   let b = req.body || {};
@@ -132,9 +132,9 @@ module.exports = async (req, res) => {
   try {
     const r = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { "Authorization": "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+      headers: { "Authorization": "Bearer " + String(env.RESEND_API_KEY).trim(), "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: env.CATERING_FROM || "Say McIntosh Catering <onboarding@resend.dev>",
+        from: (env.CATERING_FROM || "").trim() || "Say McIntosh Catering <onboarding@resend.dev>",
         to: [env.CATERING_TO || "pies@mcintoshpies.com"],
         reply_to: email,
         subject,
@@ -144,11 +144,11 @@ module.exports = async (req, res) => {
     });
     if (!r.ok) {
       console.error("Resend error:", r.status, await r.text());
-      return res.status(502).json({ error: "We couldn't send your request. Please try again, or email catering@mcintoshpies.com." });
+      return res.status(502).json({ error: "We couldn't send your request. Please try again, or email pies@mcintoshpies.com." });
     }
     return res.status(200).json({ ok: true });
   } catch (e) {
     console.error("Catering email failed:", e);
-    return res.status(502).json({ error: "We couldn't send your request. Please try again, or email catering@mcintoshpies.com." });
+    return res.status(502).json({ error: "We couldn't send your request. Please try again, or email pies@mcintoshpies.com." });
   }
 };
