@@ -29,7 +29,7 @@ function samePassword(a, b) {
 function chicagoDate(d) {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
 }
-// Ready-tomorrow pickup date for an order placed at `created`: next day, skipping Sunday
+// Ready-tomorrow pickup date for an older order placed at `created`: next day, skipping Sunday
 function readyDateISO(created) {
   const [y, m, d] = chicagoDate(new Date(created)).split("-").map(Number);
   const t = new Date(Date.UTC(y, m - 1, d + 1, 12));
@@ -115,8 +115,10 @@ module.exports = async (req, res) => {
         pre[day.key][loc][pie.key] += q;
         items.push({ kind: "pre", day: day.key, pie: pie.key, q });
         counted = true;
-      } else if (name.includes("Ready Tomorrow")) {
-        const iso = readyDateISO(o.created_at);
+      } else if (name.includes("Ready Tomorrow") || name.includes("Online Order")) {
+        // online orders carry the customer's chosen pickup date; older ready-tomorrow orders don't
+        const picked = (li.metadata || {}).pickup_date;
+        const iso = /^\d{4}-\d{2}-\d{2}$/.test(picked || "") ? picked : readyDateISO(o.created_at);
         if (iso < today) continue; // already picked up
         const slot = (note.match(/(11am–2pm|2pm–5pm|5pm–8pm)/) || [])[1] || "";
         tom[iso] = tom[iso] || { label: niceDate(iso), lr: blank(), nlr: blank(), list: [] };
