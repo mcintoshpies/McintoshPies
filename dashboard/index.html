@@ -101,7 +101,7 @@ header h1{font-size:1.5rem}
 
     <div class="stats">
       <div class="stat hot"><small>Thanksgiving pies</small><b id="s-pre">0</b></div>
-      <div class="stat"><small>Ready-tomorrow pies</small><b id="s-tom">0</b></div>
+      <div class="stat"><small>Online order pies</small><b id="s-tom">0</b></div>
       <div class="stat"><small>Paid orders</small><b id="s-paid">0</b></div>
       <div class="stat"><small>Refunded (not counted)</small><b id="s-ref">0</b></div>
     </div>
@@ -109,7 +109,7 @@ header h1{font-size:1.5rem}
     <h2 class="sec">Thanksgiving pickup</h2>
     <div class="grid" id="pre"></div>
 
-    <h2 class="sec">Ready tomorrow</h2>
+    <h2 class="sec">Online orders (by pickup day)</h2>
     <div class="grid" id="tom"></div>
 
     <p class="foot">Counts paid website orders only. Refunded orders are left out. Refreshes every 2 minutes.</p>
@@ -154,7 +154,7 @@ header h1{font-size:1.5rem}
     if(!data) return;
     var pre=$("pre"), tom=$("tom"), preT=0, tomT=0; pre.innerHTML=""; tom.innerHTML="";
     ["mon","tue","wed"].forEach(function(k){ var c=card(data.preorder[k]); preT+=c.total; pre.appendChild(c.el); });
-    if(!data.tomorrow.length){ tom.innerHTML='<div class="empty">No upcoming ready-tomorrow orders.</div>'; }
+    if(!data.tomorrow.length){ tom.innerHTML='<div class="empty">No upcoming online orders.</div>'; }
     data.tomorrow.forEach(function(g){ var c=card(g,"tom"); tomT+=c.total; tom.appendChild(c.el); });
     $("s-pre").textContent=preT; $("s-tom").textContent=tomT; $("s-paid").textContent=data.paid; $("s-ref").textContent=data.refunded;
     $("updated").textContent="Updated "+new Date(data.updated).toLocaleString("en-US",{weekday:"short",hour:"numeric",minute:"2-digit"});
