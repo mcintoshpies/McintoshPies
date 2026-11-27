@@ -11,11 +11,6 @@ const PIES = [
   { key: "cheese", starts: "Sweet Potato Cheesecake –" },
   { key: "fill",   starts: "Sweet Potato Pie Filling –" },
 ];
-const DAYS = [
-  { key: "mon", label: "Monday, Nov 23" },
-  { key: "tue", label: "Tuesday, Nov 24" },
-  { key: "wed", label: "Wednesday, Nov 25" },
-];
 const START = "2026-09-01T00:00:00Z"; // only look at orders placed after this date
 
 const blank = () => ({ sweet: 0, pecan: 0, cheese: 0, fill: 0 });
@@ -88,8 +83,6 @@ module.exports = async (req, res) => {
   }
 
   // 2. Count pies
-  const pre = {};
-  DAYS.forEach((d) => (pre[d.key] = { label: d.label, lr: blank(), nlr: blank(), list: [] }));
   const tom = {}; // by pickup date
   let paid = 0, refunded = 0;
   const today = chicagoDate(new Date());
@@ -109,13 +102,7 @@ module.exports = async (req, res) => {
       const q = parseInt(li.quantity, 10) || 0;
       const note = li.note || "";
 
-      if (name.includes("Thanksgiving Pre-Order")) {
-        const day = DAYS.find((d) => note.includes(d.label));
-        if (!day) continue;
-        pre[day.key][loc][pie.key] += q;
-        items.push({ kind: "pre", day: day.key, pie: pie.key, q });
-        counted = true;
-      } else if (name.includes("Ready Tomorrow") || name.includes("Online Order")) {
+      if (name.includes("Ready Tomorrow") || name.includes("Online Order")) {
         // online orders carry the customer's chosen pickup date; older ready-tomorrow orders don't
         const picked = (li.metadata || {}).pickup_date;
         const iso = /^\d{4}-\d{2}-\d{2}$/.test(picked || "") ? picked : readyDateISO(o.created_at);
@@ -136,16 +123,15 @@ module.exports = async (req, res) => {
     const phone = parts.length >= 3 ? parts[2] : "";
     const byGroup = {};
     for (const it of items) {
-      const g = it.kind === "pre" ? "pre:" + it.day : "tom:" + it.iso;
+      const g = it.iso;
       (byGroup[g] = byGroup[g] || { slot: it.slot, pies: blank() }).pies[it.pie] += it.q;
     }
     for (const [g, v] of Object.entries(byGroup)) {
       const entry = { name: who || "Customer", phone, loc, slot: v.slot || "", pies: v.pies };
-      const [kind, id] = g.split(":");
-      (kind === "pre" ? pre[id] : tom[id]).list.push(entry);
+      tom[g].list.push(entry);
     }
   }
 
   const tomorrow = Object.keys(tom).sort().map((k) => ({ date: k, ...tom[k] }));
-  return res.status(200).json({ updated: new Date().toISOString(), paid, refunded, preorder: pre, tomorrow });
+  return res.status(200).json({ updated: new Date().toISOString(), paid, refunded, tomorrow });
 };
