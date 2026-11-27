@@ -21,7 +21,7 @@ const SLOTS = { early: "11am–2pm", mid: "2pm–5pm", late: "5pm–8pm" };
 
 // PICKUP DAYS: keep in sync with index.html.
 // Pickup starts tomorrow (24 hours to bake). Closed Sundays and on the dates below.
-const CLOSED = ["2026-11-26"]; // add holiday closures here as "YYYY-MM-DD"
+const CLOSED = ["2026-11-26", "2026-12-25"]; // add holiday closures here as "YYYY-MM-DD"
 const SHOW_DAYS = 30; // offer pickup days across the next 30 days
 
 // Open pickup days (YYYY-MM-DD) in Little Rock time
