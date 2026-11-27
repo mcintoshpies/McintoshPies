@@ -148,6 +148,10 @@ section{padding:56px 0}
 .choice small{display:block;color:var(--muted);font-size:.95rem;line-height:1.35}
 .choice:has(input:checked){border-color:var(--red);background:#fff4f1;box-shadow:0 0 0 2px var(--red) inset}
 .choice:has(input:focus-visible){outline:4px solid var(--gold-lt);outline-offset:2px}
+#co-days{grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+#co-days .choice{padding:10px 8px;text-align:center}
+#co-days .choice strong{font-size:1rem}
+#co-days .choice small{font-size:.85rem}
 .choice .dir{display:inline-block;margin-top:6px;font-size:.9rem;font-weight:700;color:var(--ink)}
 .field{display:block;margin-top:12px}
 .field span{display:block;font-weight:700;margin-bottom:4px}
@@ -406,7 +410,7 @@ footer strong{color:#fff}
   /* ===== PICKUP DAYS: keep in sync with api/checkout.js =====
      Pickup starts tomorrow (24 hours to bake). Closed Sundays and on the dates below. */
   var CLOSED = ["2026-11-26"];        // add holiday closures here as "YYYY-MM-DD"
-  var SHOW_DAYS = 6;                  // how many pickup days to offer
+  var SHOW_DAYS = 30;                 // offer pickup days across the next 30 days
 
   function money(n){ return "$" + n.toFixed(2); }
   function $(id){ return document.getElementById(id); }
@@ -416,12 +420,12 @@ footer strong{color:#fff}
     var parts = new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",year:"numeric",month:"numeric",day:"numeric"}).formatToParts(new Date());
     var get = function(t){ return Number(parts.find(function(p){return p.type===t;}).value); };
     var d = new Date(Date.UTC(get("year"), get("month")-1, get("day"), 12)), out = [];
-    for (var i=0; out.length<SHOW_DAYS && i<30; i++){
+    for (var i=0; i<SHOW_DAYS; i++){
       d.setUTCDate(d.getUTCDate()+1);
       var iso = d.toISOString().slice(0,10);
       if (d.getUTCDay()===0 || CLOSED.indexOf(iso)!==-1) continue;
       out.push({ iso:iso,
-        wd: d.toLocaleDateString("en-US",{timeZone:"UTC",weekday:"long"}),
+        wd: d.toLocaleDateString("en-US",{timeZone:"UTC",weekday:"short"}),
         md: d.toLocaleDateString("en-US",{timeZone:"UTC",month:"short",day:"numeric"}) });
     }
     return out;
