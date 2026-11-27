@@ -1,0 +1,1 @@
+{"redirects": [{"source": "/catering", "destination": "/", "permanent": true}, {"source": "/catering/:path*", "destination": "/", "permanent": true}, {"source": "/catering.html", "destination": "/", "permanent": true}]}
